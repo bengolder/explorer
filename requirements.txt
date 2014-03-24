@@ -1,0 +1,9 @@
+django
+django-taggit
+django-polymorphic
+django-extensions
+django-sekizai
+django-reversion
+django-grappelli
+PIL
+
