@@ -1,0 +1,44 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en-us">
+    <head>
+        <meta charset="UTF-8">
+      <title>{%if page_title%}{{page_title}}{%else%}DUSP Explorer{%endif%}</title>
+        {% block css %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block content %}
+        <header>
+           {% block header %}
+            <div class="titleblock">
+              <span class="title">{%if page_title%}{{page_title}}{%else%}DUSP Explorer{%endif%}</span>
+            </div>
+            {% endblock %}
+        </header>
+        <div id="chart">
+        </div>
+
+      {% block scripts %}
+        {% block js_environmental_vars %}
+        <script type="text/javascript" >
+        var APP_ROOT = "{{ ROOT_URL }}";
+        var STATIC_ROOT = "{% get_static_prefix %}";
+        var APP_VIEW = "{{ app_view }}";
+        </script>
+        {% endblock %}
+        {% block js_basic_libs %}
+        {% endblock %}
+        <!--end scripts-->
+      {% endblock %}
+      <!--end content-->
+    {% endblock %}
+    </body>
+</html>
+
+
+
+
+
+

@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from mit.class_views import SimpleView
 
-# Create your views here.
+home = SimpleView( 'DUSP Explorer Splash', 'base.html' )
+
+
+
+
+
