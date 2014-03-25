@@ -11,11 +11,19 @@ install:
 update:
 	git pull origin master
 
-test_travis:
-	make test
-
 
 pre-deploy:
+	# run on local dev repo before deploying to server
 	python ./explorer/manage.py collectstatic
 	git add ./explorer/static/*
 	git commit -a -m 'adding static files pre-deployment'
+	git push origin master
+	ssh explorer
+
+deploy:
+	# run on server in order to update and deploy
+	make update
+	restart
+
+
+
