@@ -14,3 +14,8 @@ update:
 test_travis:
 	make test
 
+
+pre-deploy:
+	python ./explorer/manage.py collectstatic
+	git add ./explorer/static/*
+	git commit -a -m 'adding static files pre-deployment'
