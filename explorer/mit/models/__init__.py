@@ -24,6 +24,11 @@ from .tags import (
         Topic,
         Location,
         )
+from .courses import (
+        Semester,
+        Subject,
+        Course,
+        )
 
 __all__ = [
         'Named',
@@ -42,4 +47,7 @@ __all__ = [
         'JournalArticle',
         'Topic',
         'Location',
+        'Semester',
+        'Subject',
+        'Course',
         ]

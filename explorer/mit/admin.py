@@ -17,7 +17,25 @@ from mit.models import (
         JournalArticle,
         Topic,
         Location,
+        Semester,
+        Subject,
+        Course,
         )
+
+class SemesterAdmin(admin.ModelAdmin):
+    fields = ('year', 'season')
+
+class CourseInline(admin.TabularInline):
+    model = Course
+    fields = ('semesters', 'instructors', 'title', 'description', 'topics',
+        'places_of_study', 'website')
+    extra = 1
+
+class SubjectAdmin(admin.ModelAdmin):
+    fields = ('course_codes', 'title', 'level', 'description')
+    inlines = [
+            CourseInline,
+            ]
 
 class FacultyAdmin(admin.ModelAdmin):
     fields = ('full_name', 'official_title', 'current_interests', 'email',
@@ -88,4 +106,6 @@ admin.site.register(Publisher, PublisherAdmin)
 admin.site.register(Work, WorkParentAdmin)
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Location, LocationAdmin)
+admin.site.register(Semester, SemesterAdmin)
+admin.site.register(Subject, SubjectAdmin)
 

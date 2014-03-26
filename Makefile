@@ -1,3 +1,9 @@
+run:
+	python ./explorer/manage.py runserver
+
+sync:
+	python ./explorer/manage.py syncdb
+
 install-server-deps:
 	sudo apt-get install libapache2-mod-wsgi
 	sudo apt-get install python-dev # needed for gcc
@@ -10,7 +16,6 @@ install:
 
 update:
 	git pull origin master
-
 
 pre-deploy:
 	# run on local dev repo before deploying to server
