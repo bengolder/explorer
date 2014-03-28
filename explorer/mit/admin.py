@@ -6,11 +6,13 @@ from polymorphic.admin import (
         )
 
 from mit.models import (
+        Department,
         Person,
         Faculty,
         Work,
         Project,
         ResearchInitiative,
+        Colloquium,
         Publisher,
         Publication,
         Book,
@@ -65,7 +67,7 @@ class SubjectAdmin(admin.ModelAdmin):
 
 class FacultyAdmin(admin.ModelAdmin):
     fieldsets = (
-            (None, {'fields': ['full_name', 'official_title'],}),
+            (None, {'fields': ['full_name', 'official_title', 'departments'],}),
             ('Contact Info', {'fields': [('email', 'home_page'),],
                 'classes': ('grp-collapse grp-closed',),
                 }),
@@ -104,6 +106,11 @@ class ResearchInitiativeAdmin(WorkChildAdmin):
         'locations', 'partners', 'start_date', 'end_date', 'subprojects',
         )
 
+class ColloquiumAdmin(WorkChildAdmin):
+    fields = ('title', 'authors', 'description', 'topics', 'website',
+        'locations', 'partners', 'date',
+        )
+
 class PublicationAdmin(WorkChildAdmin):
     fields = ('title', 'authors', 'date_published', 'publisher', 'description',
             'topics', 'website',
@@ -134,12 +141,14 @@ class WorkParentAdmin(PolymorphicParentModelAdmin):
     child_models = (
             (Project, ProjectAdmin),
             (ResearchInitiative, ResearchInitiativeAdmin),
+            (Colloquium, ColloquiumAdmin),
             (Publication, PublicationAdmin),
             (Book, BookAdmin),
             (Article, ArticleAdmin),
             (JournalArticle, JournalArticleAdmin),
     )
 
+admin.site.register(Department)
 admin.site.register(Faculty, FacultyAdmin)
 admin.site.register(Publisher, PublisherAdmin)
 admin.site.register(Work, WorkParentAdmin)

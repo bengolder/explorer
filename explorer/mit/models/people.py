@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from polymorphic import PolymorphicModel
 from .mixins import DateAware
+from .institutions import Department
 
 
 class Person(PolymorphicModel):
@@ -26,6 +27,7 @@ class Faculty(Person):
     current_interests = models.ManyToManyField('Topic', null=True, blank=True)
     places_lived = models.ManyToManyField('Location', null=True, blank=True)
     official_title = models.CharField(max_length=150, null=True, blank=True)
+    departments = models.ManyToManyField('Department')
     class Meta:
         app_label = "mit"
     @staticmethod

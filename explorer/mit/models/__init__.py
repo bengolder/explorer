@@ -30,6 +30,12 @@ from .courses import (
         Subject,
         Course,
         )
+from .institutions import (
+        Department,
+        )
+from .colloquia import (
+        Colloquium,
+        )
 
 __all__ = [
         'Named',
@@ -37,11 +43,13 @@ __all__ = [
         'Titled',
         'CanHaveWebsite',
         'CanBeDescribed',
+        'Department',
         'Person',
         'Faculty',
         'Work',
         'Project',
         'ResearchInitiative',
+        'Colloquium',
         'Publisher',
         'Publication',
         'Book',

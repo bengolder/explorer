@@ -17,6 +17,9 @@ install:
 update:
 	git pull origin master
 
+migrate:
+	python ./explorer/manage.py schemamigration mit --auto
+
 pre-deploy:
 	# run on local dev repo before deploying to server
 	python ./explorer/manage.py collectstatic
