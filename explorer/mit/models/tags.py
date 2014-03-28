@@ -11,6 +11,9 @@ class Topic(PolymorphicModel, Named, CanBeDescribed):
             related_name="subtopics")
     class Meta:
         app_label = 'mit'
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "name__icontains",)
 
 class Location(PolymorphicModel, Named, CanBeDescribed):
     parent_locations = models.ManyToManyField('Location', blank=True,
@@ -19,6 +22,9 @@ class Location(PolymorphicModel, Named, CanBeDescribed):
     official_id = models.CharField(max_length=50, null=True, blank=True)
     class Meta:
         app_label = 'mit'
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "name__icontains",)
 
 
 

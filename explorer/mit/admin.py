@@ -10,6 +10,7 @@ from mit.models import (
         Faculty,
         Work,
         Project,
+        ResearchInitiative,
         Publisher,
         Publication,
         Book,
@@ -23,46 +24,84 @@ from mit.models import (
         )
 
 class SemesterAdmin(admin.ModelAdmin):
-    fields = ('year', 'season')
+    fields = (('year', 'season'),)
+    ordering = ('-year','season')
 
-class CourseInline(admin.TabularInline):
+class CourseInline(admin.StackedInline):
     model = Course
-    fields = ('semesters', 'instructors', 'title', 'description', 'topics',
-        'places_of_study', 'website')
+    verbose_name = ""
+    verbose_name_plural = "Specific Subject Versions"
+    raw_id_fields = ('instructors', 'topics', 'places_of_study')
+    autocomplete_lookup_fields = {
+            'm2m':['instructors', 'topics', 'places_of_study'],
+            }
+    fieldsets = (
+            (None, {'fields': (('semesters', 'instructors'),),}),
+            ('Version Title & Description', {
+                'fields': (('title', 'website'), 'description',
+                    ('is_workshop', 'is_practicum', 'is_studio'),),
+                'classes': ('grp-collapse grp-closed',)
+                }),
+            ('Locations Studied', {
+                'fields': ('places_of_study',),
+                'classes': ('grp-collapse grp-closed',)
+                }),
+    )
     extra = 1
+    ordering = ('semesters',)
 
 class SubjectAdmin(admin.ModelAdmin):
-    fields = ('course_codes', 'title', 'level', 'description')
+    fieldsets = (
+        (None, {'fields': (('course_codes', 'title', 'level'),) }),
+        ('Canonical Subject Description', {
+            'classes': ('grp-collapse grp-closed',),
+            'fields': ('description',),
+            }),
+    )
+    ordering = ('course_codes',)
     inlines = [
             CourseInline,
             ]
 
 class FacultyAdmin(admin.ModelAdmin):
-    fields = ('full_name', 'official_title', 'current_interests', 'email',
-        'home_page', 'bio', 'places_lived')
+    fieldsets = (
+            (None, {'fields': ['full_name', 'official_title'],}),
+            ('Contact Info', {'fields': [('email', 'home_page'),],
+                'classes': ('grp-collapse grp-closed',),
+                }),
+            ('Biographic Details', {'fields': [('current_interests',
+                'places_lived'), 'bio'],
+                'classes': ('grp-collapse',),
+                }),
+    )
     ordering = ('full_name',)
 
 class TopicAdmin(admin.ModelAdmin):
-    fields = ('name', 'description', 'parent_topics')
+    fields = (('name', 'description'), 'parent_topics')
     ordering = ('name',)
 
 class LocationAdmin(admin.ModelAdmin):
-    fields = ('name', 'parent_locations', 'official_name', 'official_id', 'description')
+    fields = (('name', 'parent_locations'), ('official_name', 'official_id'), 'description')
     ordering = ('name',)
 
 class PublisherAdmin(admin.ModelAdmin):
-    fields = ('name', 'website', 'description')
+    fields = (('name', 'website'), 'description')
     ordering = ('name',)
 
 class WorkChildAdmin(PolymorphicChildModelAdmin):
     base_model = Work
-    fields = ('title', 'authors', 'description', 'topics', 'website',
+    fields = (('title', 'authors'), 'description', 'topics', 'website',
         'locations',
         )
 
 class ProjectAdmin(WorkChildAdmin):
     fields = ('title', 'authors', 'description', 'topics', 'website',
         'locations', 'partners', 'start_date', 'end_date',
+        )
+
+class ResearchInitiativeAdmin(WorkChildAdmin):
+    fields = ('title', 'authors', 'description', 'topics', 'website',
+        'locations', 'partners', 'start_date', 'end_date', 'subprojects',
         )
 
 class PublicationAdmin(WorkChildAdmin):
@@ -94,12 +133,12 @@ class WorkParentAdmin(PolymorphicParentModelAdmin):
     base_model = Work
     child_models = (
             (Project, ProjectAdmin),
+            (ResearchInitiative, ResearchInitiativeAdmin),
             (Publication, PublicationAdmin),
             (Book, BookAdmin),
             (Article, ArticleAdmin),
             (JournalArticle, JournalArticleAdmin),
     )
-
 
 admin.site.register(Faculty, FacultyAdmin)
 admin.site.register(Publisher, PublisherAdmin)

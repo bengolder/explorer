@@ -1,5 +1,5 @@
 django>=1.6
-django-taggit
+south
 django-polymorphic
 django-extensions
 django-sekizai

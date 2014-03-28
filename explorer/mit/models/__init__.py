@@ -12,6 +12,7 @@ from .people import (
 from .works import (
         Work,
         Project,
+        ResearchInitiative,
         )
 from .publications import (
         Publisher,
@@ -40,6 +41,7 @@ __all__ = [
         'Faculty',
         'Work',
         'Project',
+        'ResearchInitiative',
         'Publisher',
         'Publication',
         'Book',

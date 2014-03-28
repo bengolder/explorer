@@ -3,10 +3,10 @@ from polymorphic import PolymorphicModel
 
 from .mixins import (Titled, DateAware, CanBeDescribed, CanHaveWebsite)
 
-class Work(PolymorphicModel, Titled, CanBeDescribed, DateAware, CanHaveWebsite):
+class Work(PolymorphicModel, Titled, CanBeDescribed, CanHaveWebsite):
     """The most generic category of an item of work done by faculty
     """
-    authors = models.ManyToManyField('Person')
+    authors = models.ManyToManyField('Faculty')
     topics = models.ManyToManyField('Topic', null=True, blank=True)
     locations = models.ManyToManyField('Location', null=True, blank=True)
     class Meta:
@@ -18,6 +18,14 @@ class Project(Work):
     partners = models.TextField(null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
+    class Meta:
+        app_label = "mit"
+
+class ResearchInitiative(Project):
+    """A research lab or collaborative research initiative run by DUSP faculty
+    """
+    subprojects = models.ManyToManyField('Work', related_name='research_labs',
+            null=True, blank=True)
     class Meta:
         app_label = "mit"
 

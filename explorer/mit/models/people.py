@@ -4,7 +4,7 @@ from polymorphic import PolymorphicModel
 from .mixins import DateAware
 
 
-class Person(PolymorphicModel, DateAware):
+class Person(PolymorphicModel):
     full_name = models.CharField(max_length=250)
     bio = models.TextField(blank=True, null=True)
     home_page = models.URLField(blank=True, null=True)
@@ -17,6 +17,10 @@ class Person(PolymorphicModel, DateAware):
     def __unicode__(self):
         return self.full_name
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "full_name__icontains",)
+
 class Faculty(Person):
     is_active = models.BooleanField(default=True)
     current_interests = models.ManyToManyField('Topic', null=True, blank=True)
@@ -24,8 +28,9 @@ class Faculty(Person):
     official_title = models.CharField(max_length=150, null=True, blank=True)
     class Meta:
         app_label = "mit"
-    def __unicode__(self):
-        return self.full_name + ", " + self.official_title
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "full_name__icontains",)
 
 
 
