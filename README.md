@@ -1,10 +1,11 @@
+## DUSP Explorer Prototype 2 
+
+requirements:
+
+* django==1.6
+* south
+* django-polymorphic
+* django-grappelli (this might change)
+* PIL
 
 
-web address for remote server:
-    http://archbuild1.mit.edu/
-
-afs address for remote server:
-    
-
-
-de
