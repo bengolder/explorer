@@ -20,6 +20,9 @@ update:
 migrate:
 	python ./explorer/manage.py schemamigration mit --auto
 
+shell:
+	python ./explorer/manage.py shell_plus
+
 pre-deploy:
 	# run on local dev repo before deploying to server
 	python ./explorer/manage.py collectstatic

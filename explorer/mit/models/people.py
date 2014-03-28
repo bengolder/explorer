@@ -35,4 +35,3 @@ class Faculty(Person):
         return ("id__iexact", "full_name__icontains",)
 
 
-

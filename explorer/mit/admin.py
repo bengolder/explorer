@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.forms import ModelForm
 
 from polymorphic.admin import (
         PolymorphicParentModelAdmin,
@@ -65,6 +66,24 @@ class SubjectAdmin(admin.ModelAdmin):
             CourseInline,
             ]
 
+class FacultyAdminForm(ModelForm):
+
+    class Meta:
+        model = Faculty
+
+    def __init__(self, *args, **kwargs):
+        if 'initial' not in  kwargs:
+            kwargs['initial'] = {}
+        default_department, created = Department.objects.get_or_create(
+            course_number="11",
+            name="Urban Studies and Planning")
+        if created:
+            default_department.save()
+        kwargs['initial'].update({
+            'departments':[default_department.id],
+            })
+        super(FacultyAdminForm, self).__init__(*args, **kwargs)
+
 class FacultyAdmin(admin.ModelAdmin):
     fieldsets = (
             (None, {'fields': ['full_name', 'official_title', 'departments'],}),
@@ -77,6 +96,8 @@ class FacultyAdmin(admin.ModelAdmin):
                 }),
     )
     ordering = ('full_name',)
+    form = FacultyAdminForm
+
 
 class TopicAdmin(admin.ModelAdmin):
     fields = (('name', 'description'), 'parent_topics')
