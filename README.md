@@ -2,12 +2,17 @@
 
 requirements:
 
-* django==1.6
+* django==1.6.2
 * south
+* django-polymorphic
 * django-extensions
 * django-reversion
-* django-polymorphic
-* django-grappelli (this might change)
+* django-grappelli
+* django-guardian
+* djangorestframework
+* markdown
+* django-filter
 * PIL
+
 
 
