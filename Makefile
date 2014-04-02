@@ -24,7 +24,8 @@ shell:
 	python ./explorer/manage.py shell_plus
 
 staticfiles:
-	python ./explorer/manage.py collectstatic
+	grunt --gruntfile ./front/GruntFile.js build
+	python ./explorer/manage.py collectstatic --noinput
 
 pre-deploy:
 	# run on local dev repo before deploying to server
