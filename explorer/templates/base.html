@@ -1,4 +1,4 @@
-{% load static %}
+{% load staticfiles %}
 
 <!doctype html>
 <html lang="en-us">
@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
       <title>{%if page_title%}{{page_title}}{%else%}DUSP Explorer{%endif%}</title>
         {% block css %}
-        <link href="/static/css/main.css" rel="stylesheet">
+        <link href="{% static "css/main.css" %}" rel="stylesheet">
         {% endblock %}
     </head>
     <body>
@@ -31,7 +31,7 @@
         {% block js_environmental_vars %}
         <script type="text/javascript" >
         var APP_ROOT = "{{ ROOT_URL }}";
-        var STATIC_ROOT = "{% get_static_prefix %}";
+        var STATIC_ROOT = "{% static "" %}";
         var APP_VIEW = "{{ app_view }}";
         </script>
         {% endblock %}
