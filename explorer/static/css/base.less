@@ -1,0 +1,52 @@
+// colors
+
+@black: #000000;
+@white: #ffffff;
+@orange: #ff4010;
+@blue: #0785ff;
+
+// grid
+
+@em: 16px;
+@vu: 22px;
+
+.paddings-lr(@num){
+    padding-left: @em * @num;
+    padding-right: @em * @num;
+}
+.paddings-bt(@num){
+    padding-top: @vu * @num;
+    padding-bottom: @vu * @num;
+}
+
+
+// typography
+
+@bodyfont: "Open Sans", "Helvetica", Arial, sans-serif;
+@annotation: "Roboto", sans-serif;
+.bold {
+    font-weight: bold;
+}
+
+.greytext {
+    color: lighten(@black, 20%);
+}
+.orangetext {
+    color: @orange;
+}
+.bluetext {
+    color: @blue;
+}
+
+.typestyle-body {
+    font-family: @bodyfont;
+    font-size: @em;
+    line-height: @vu;
+}
+
+
+.typestyle-annotation {
+}
+
+
+

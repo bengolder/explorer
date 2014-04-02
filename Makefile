@@ -32,7 +32,7 @@ staticfiles:
 
 pre-deploy:
 	# run on local dev repo before deploying to server
-	make static
+	make staticfiles
 	git add ./explorer/static/*
 	git commit -a -m 'adding static files pre-deployment'
 	git push origin master

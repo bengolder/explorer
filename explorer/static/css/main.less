@@ -1,0 +1,70 @@
+@import "base.less";
+
+
+html, body {
+    margin: 0; padding: 0;
+    .typestyle-body;
+}
+
+header {
+    overflow: auto;
+    border-bottom: 1px solid @black;
+}
+
+.titleblock, .controls {
+    padding-top: @vu;
+    padding-bottom: @vu;
+    float: left;
+}
+
+.titleblock {
+    border-right: 1px solid @black;
+    width: @em * 10;
+    padding-left:  @em * 2;
+    padding-right: @em * 1;
+}
+.controls {
+    padding-left:  @em * 1;
+    padding-right: @em * 2;
+}
+
+.title {
+    .bold;
+    .greytext;
+    margin-right: @em * 2;
+}
+
+.control-sentence {
+    .greytext;
+}
+
+.control {
+    cursor: pointer;
+    .paddings-lr(0.25);
+    border-left: 1px solid lighten(@black, 80%);
+    border-right: 1px solid lighten(@black, 80%);
+    &:last-child {
+        border-right: none;
+    }
+}
+.control + .control {
+    border-left: none;
+}
+
+.noun {
+    .bold;
+    &:hover {
+        .orangetext;
+    }
+}
+.relational {
+    .bluetext;
+    &:hover {
+        color: @black;
+    }
+}
+
+
+
+
+
