@@ -34,9 +34,13 @@ build:
 
 staticfiles:
 	sed -i '' 's/=\"scripts/=\"\/static\/scripts/g' ./front/dist/index.html
-	sed -i '' 's/=\"styles\//=\"\/static\/styles\//g' ./front/dist/index.html
+	sed -i '' 's/href=\"styles/href=\"static\/styles\//g' ./front/dist/index.html
 	sed -i '' 's/=\"bower_components/=\"\/static\/bower_components/g' ./front/dist/index.html
 	python ./explorer/manage.py collectstatic --noinput
+
+fullstatic:
+	make build
+	make staticfiles
 
 pre-deploy:
 	# run on local dev repo before deploying to server
