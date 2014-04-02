@@ -6,14 +6,21 @@
         <meta charset="UTF-8">
       <title>{%if page_title%}{{page_title}}{%else%}DUSP Explorer{%endif%}</title>
         {% block css %}
+        <link href="/static/css/main.css" rel="stylesheet">
         {% endblock %}
     </head>
     <body>
         {% block content %}
         <header>
            {% block header %}
-            <div class="titleblock">
-              <span class="title">{%if page_title%}{{page_title}}{%else%}DUSP Explorer{%endif%}</span>
+
+            <div class="titleblock"><span class="title">{%if page_title%}{{page_title}}{%else%}DUSP Explorer{%endif%}</span></div>
+
+            <div class="controls">
+              <span class="control-sentence">
+              Show me
+                <span class="control dropdown noun">all topics</span><span class="control relational dropdown">sorted</span><span class="control dropdown noun">by projects</span>
+              </span>
             </div>
             {% endblock %}
         </header>

@@ -23,9 +23,12 @@ migrate:
 shell:
 	python ./explorer/manage.py shell_plus
 
+staticfiles:
+	python ./explorer/manage.py collectstatic
+
 pre-deploy:
 	# run on local dev repo before deploying to server
-	python ./explorer/manage.py collectstatic
+	make static
 	git add ./explorer/static/*
 	git commit -a -m 'adding static files pre-deployment'
 	git push origin master
@@ -35,6 +38,10 @@ deploy:
 	# run on server in order to update and deploy
 	make update
 	restart
+
+clean:
+	rm -rf */*.pyc
+	rm -rf ./explorer/static/*
 
 
 
