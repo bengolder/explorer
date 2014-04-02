@@ -4,6 +4,9 @@ run:
 sync:
 	python ./explorer/manage.py syncdb
 
+schema-chart:
+	python ./explorer/manage.py graph_models mit -o dusp_explorer_db_schema.png
+
 install-server-deps:
 	sudo apt-get install libapache2-mod-wsgi
 	sudo apt-get install python-dev # needed for gcc

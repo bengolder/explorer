@@ -15,7 +15,7 @@ require.config({
         },
         bootstrap: {
             deps: ['jquery'],
-            exports: 'jquery'
+            exports: '$'
         }
     },
     paths: {
@@ -27,8 +27,9 @@ require.config({
 });
 
 require([
-    'backbone'
-], function (Backbone) {
+    'backbone', 'bootstrap'
+], function (Backbone, $) {
+	console.log($);
     Backbone.history.start();
     console.log('Hello from Backbone!');
 });

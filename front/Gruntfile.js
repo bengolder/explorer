@@ -21,7 +21,7 @@ module.exports = function (grunt) {
         },
         watch: {
             less: {
-                files: ['/styles/{,*/}/*.less'],
+                files: ['<%= yeoman.app %>/styles/{,*/}/*.less'],
                 tasks: ['less']
             },
             styles: {
@@ -35,6 +35,7 @@ module.exports = function (grunt) {
                 files: [
                     '<%= yeoman.app %>/*.html',
                     '.tmp/styles/{,*/}*.css',
+					'<%= yeoman.app %>/styles/{,*/}/*.less',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
