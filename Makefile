@@ -1,6 +1,9 @@
 run:
 	python ./explorer/manage.py runserver
 
+serve:
+	grunt --gruntfile ./front/GruntFile.js server
+
 sync:
 	python ./explorer/manage.py syncdb
 
@@ -26,8 +29,13 @@ migrate:
 shell:
 	python ./explorer/manage.py shell_plus
 
-staticfiles:
+build: 
 	grunt --gruntfile ./front/GruntFile.js build
+
+staticfiles:
+	sed -i '' 's/=\"scripts/=\"\/static\/scripts/g' ./front/dist/index.html
+	sed -i '' 's/=\"styles/=\"\/static\/styles/g' ./front/dist/index.html
+	sed -i '' 's/=\"bower_components/=\"\/static\/bower_components/g' ./front/dist/index.html
 	python ./explorer/manage.py collectstatic --noinput
 
 pre-deploy:
