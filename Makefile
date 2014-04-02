@@ -34,7 +34,7 @@ build:
 
 staticfiles:
 	sed -i '' 's/=\"scripts/=\"\/static\/scripts/g' ./front/dist/index.html
-	sed -i '' 's/=\"styles/=\"\/static\/styles/g' ./front/dist/index.html
+	sed -i '' 's/=\"styles\//=\"\/static\/styles\//g' ./front/dist/index.html
 	sed -i '' 's/=\"bower_components/=\"\/static\/bower_components/g' ./front/dist/index.html
 	python ./explorer/manage.py collectstatic --noinput
 
