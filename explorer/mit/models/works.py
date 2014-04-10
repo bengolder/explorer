@@ -9,13 +9,13 @@ class Work(PolymorphicModel, Titled, CanBeDescribed, CanHaveWebsite):
     authors = models.ManyToManyField('Faculty')
     topics = models.ManyToManyField('Topic', null=True, blank=True)
     locations = models.ManyToManyField('Location', null=True, blank=True)
+    partners = models.TextField(null=True, blank=True)
     class Meta:
         app_label = "mit"
 
 class Project(Work):
     """A generic project done by faculty
     """
-    partners = models.TextField(null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     class Meta:

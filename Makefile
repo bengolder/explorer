@@ -7,7 +7,6 @@ serve:
 newdb:
 	createdb --owner bgolder --template template_postgis explorer
 
-
 schema-chart:
 	python ./explorer/manage.py graph_models mit -o dusp_explorer_db_schema.png
 
@@ -24,12 +23,23 @@ install:
 update:
 	git pull origin master
 
+sql:
+	python ./explorer/manage.py sql mit
+
 sync:
 	python ./explorer/manage.py syncdb
 
-migrate:
+schemainit:
+	python ./explorer/manage.py schemamigration mit --initial
+
+schema:
 	python ./explorer/manage.py schemamigration mit --auto
+
+migrate:
 	python ./explorer/manage.py migrate mit
+
+fakemigrate:
+	python ./explorer/manage.py migrate mit 0001 --fake
 
 desouth:
 	dropdb 'explorer'

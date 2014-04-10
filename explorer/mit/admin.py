@@ -114,7 +114,7 @@ class PublisherAdmin(admin.ModelAdmin):
 
 class WorkChildAdmin(PolymorphicChildModelAdmin):
     base_model = Work
-    fields = (('title', 'authors'), 'description', 'topics', 'website',
+    fields = (('title', 'authors', 'partners'), 'description', 'topics', 'website',
         'locations',
         )
 
@@ -134,25 +134,25 @@ class ColloquiumAdmin(WorkChildAdmin):
         )
 
 class PublicationAdmin(WorkChildAdmin):
-    fields = ('title', 'authors', 'date_published', 'publisher', 'description',
+    fields = (('title', 'authors','partners'), 'date_published', 'publisher', 'description',
             'topics', 'website',
             'locations', 'medium',
             )
 
 class BookAdmin(PublicationAdmin):
-    fields = ('title', 'authors', 'date_published', 'publisher',
+    fields = (('title', 'authors', 'partners'), 'date_published', 'publisher',
         'cities_published', 'edition', 'description', 'topics', 'website',
         'locations', 'medium',
         )
 
 class ArticleAdmin(PublicationAdmin):
-    fields = ('title', 'authors', 'date_published', 'periodical_name',
+    fields = (('title', 'authors', 'partners'), 'date_published', 'periodical_name',
             'pages', 'publisher', 'description',
             'topics', 'website', 'locations', 'medium',
             )
 
 class JournalArticleAdmin(ArticleAdmin):
-    fields = ('title', 'authors', 'date_published', 'periodical_name',
+    fields = (('title', 'authors', 'partners'), 'date_published', 'periodical_name',
             'volume', 'issue',
             'pages', 'publisher', 'description',
             'topics', 'website', 'locations', 'medium',
