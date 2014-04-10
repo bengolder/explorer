@@ -4,23 +4,6 @@ from .works import Work
 
 # medium choices are based on MLA format list:
 # http://libguides.csuchico.edu/content.php?pid=72716&sid=538460
-MEDIUM_CHOICES = (
-        ('Print', (
-            ('print', 'Print'),
-            ('letter', 'Letter, Memo, or E-Mail'),
-            ('map', 'Map or Chart'),
-            ('comic', 'Cartoon or Comic Strip'),
-            ('ad', 'Advertisement'),
-            ('music', 'Musical Score or Libretto'),
-            ('script', 'Manuscript or Typescript'),
-            )
-        ),
-        ('web', 'Web'),
-        ('radio', 'Radio'),
-        ('tv', 'Television'),
-        ('micro', 'Microform'),
-        ('disc', 'CD or DVD'),
-        )
 
 class PublicationFormat(Named, CanBeDescribed):
     parent_format = models.ForeignKey('PublicationFormat', null=True,
