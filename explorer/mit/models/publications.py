@@ -22,6 +22,12 @@ MEDIUM_CHOICES = (
         ('disc', 'CD or DVD'),
         )
 
+class PublicationFormat(Named, CanBeDescribed):
+    parent_format = models.ForeignKey('PublicationFormat', null=True,
+            blank=True)
+    class Meta:
+        app_label = "mit"
+
 class Publisher(Named, CanHaveWebsite, CanBeDescribed):
     """An entity that publishes work. Can be a blog, book publisher, or
     institution.
@@ -35,8 +41,7 @@ class Publication(Work):
     """
     date_published = models.DateField()
     publisher = models.ManyToManyField('Publisher')
-    medium = models.CharField(max_length=50, choices=MEDIUM_CHOICES,
-            default="print")
+    medium = models.ForeignKey('PublicationFormat', null=True, blank=True)
     class Meta:
         app_label = "mit"
 

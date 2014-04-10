@@ -15,6 +15,7 @@ from mit.models import (
         ResearchInitiative,
         Colloquium,
         Publisher,
+        PublicationFormat,
         Publication,
         Book,
         Article,
@@ -170,6 +171,7 @@ class WorkParentAdmin(PolymorphicParentModelAdmin):
     )
 
 admin.site.register(Department)
+admin.site.register(PublicationFormat)
 admin.site.register(Faculty, FacultyAdmin)
 admin.site.register(Publisher, PublisherAdmin)
 admin.site.register(Work, WorkParentAdmin)

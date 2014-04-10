@@ -15,6 +15,7 @@ from .works import (
         ResearchInitiative,
         )
 from .publications import (
+        PublicationFormat,
         Publisher,
         Publication,
         Book,

@@ -4,8 +4,9 @@ run:
 serve:
 	grunt --gruntfile ./front/GruntFile.js server
 
-sync:
-	python ./explorer/manage.py syncdb
+newdb:
+	createdb --owner bgolder --template template_postgis explorer
+
 
 schema-chart:
 	python ./explorer/manage.py graph_models mit -o dusp_explorer_db_schema.png
@@ -23,8 +24,17 @@ install:
 update:
 	git pull origin master
 
+sync:
+	python ./explorer/manage.py syncdb
+
 migrate:
 	python ./explorer/manage.py schemamigration mit --auto
+	python ./explorer/manage.py migrate mit
+
+desouth:
+	dropdb 'explorer'
+	rm -rf ./explorer/mit/migrations
+	rm -rf ./lib/python2.7/site-packages/django/contrib/auth/migrations
 
 shell:
 	python ./explorer/manage.py shell_plus
