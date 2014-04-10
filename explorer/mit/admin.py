@@ -112,6 +112,10 @@ class PublisherAdmin(admin.ModelAdmin):
     fields = (('name', 'website'), 'description')
     ordering = ('name',)
 
+class PublicationFormatAdmin(admin.ModelAdmin):
+    fields = (('name', 'parent_format'),
+            'description')
+
 class WorkChildAdmin(PolymorphicChildModelAdmin):
     base_model = Work
     fields = (('title', 'authors', 'partners'), 'description', 'topics', 'website',
@@ -132,6 +136,7 @@ class ColloquiumAdmin(WorkChildAdmin):
     fields = ('title', 'authors', 'description', 'topics', 'website',
         'locations', 'partners', 'date',
         )
+
 
 class PublicationAdmin(WorkChildAdmin):
     fields = (('title', 'authors','partners'), 'date_published', 'publisher', 'description',
@@ -171,7 +176,7 @@ class WorkParentAdmin(PolymorphicParentModelAdmin):
     )
 
 admin.site.register(Department)
-admin.site.register(PublicationFormat)
+admin.site.register(PublicationFormat, PublicationFormatAdmin)
 admin.site.register(Faculty, FacultyAdmin)
 admin.site.register(Publisher, PublisherAdmin)
 admin.site.register(Work, WorkParentAdmin)
