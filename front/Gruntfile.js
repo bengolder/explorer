@@ -37,6 +37,7 @@ module.exports = function (grunt) {
                     '<%= yeoman.app %>/*.html',
                     '.tmp/static/styles/{,*/}*.css',
 					'<%= yeoman.app %>/static/styles/{,*/}/*.less',
+					'<%= yeoman.app %>/static/scripts/templates/{,*/}/*.{html,hbs}',
                     '{.tmp,<%= yeoman.app %>}/static/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/static/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
@@ -161,7 +162,7 @@ module.exports = function (grunt) {
                     baseUrl: '<%= yeoman.app %>/static/scripts',
                     optimize: 'none',
                     paths: {
-                        'templates': '../../.tmp/static/scripts/templates'
+                        'templates': 'templates'
                     },
                     // TODO: Figure out how to make sourcemaps work with grunt-usemin
                     // https://github.com/yeoman/grunt-usemin/issues/30

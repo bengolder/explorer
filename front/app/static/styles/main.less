@@ -1,0 +1,49 @@
+@icon-font-path: "bootstrap/fonts/";
+
+@import 'bootstrap/less/bootstrap.less';
+
+
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+.padding-lr(@num) {
+    padding-left: @em * @num;
+    padding-right: @em * @num;
+}
+
+.padding-tb(@num) {
+    padding-top: @vu * @num;
+    padding-bottom: @vu * @num;
+}
+
+header {
+    border-bottom: 1px solid @black;
+    height: @vu * 4;
+}
+
+#titleblock {
+    padding-top: @vu * 1.25;
+    .padding-lr(1);
+    position: absolute;
+    height: @vu * 4;
+    border-right: 1px solid @black;
+}
+#controls {
+    height: @vu * 4;
+    .padding-tb(1);
+    margin-left: @em * 10;
+}
+.control-prefix {
+    padding-top: @vu * 20;
+}
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+
+}

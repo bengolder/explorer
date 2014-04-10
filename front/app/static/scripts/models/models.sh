@@ -1,0 +1,11 @@
+touch topics.js
+touch locations.js
+touch faculty.js
+touch works.js
+touch projects.js
+touch books.js
+touch articles.js
+touch journal_articles.js
+touch courses.js
+touch labs.js
+touch colloquiums.js
