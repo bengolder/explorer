@@ -23,6 +23,9 @@ install:
 update:
 	git pull origin master
 
+loaddata:
+	python ./explorer/manage.py loaddata ./explorer/data/datadump.json
+
 sql:
 	python ./explorer/manage.py sql mit
 
