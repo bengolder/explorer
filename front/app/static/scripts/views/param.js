@@ -20,7 +20,7 @@ initSubViews: function () {
 
 render: function () {
 	var content = template({
-		'param_type': 'NOUN',
+		'param_type': 'LIST',
 	});
 	this.$el.html(content);
 },

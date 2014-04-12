@@ -2,9 +2,10 @@ define([
   'jquery',
   'backbone',
   'views/query',
-  'collections/topics',
+  'event_manager',
+  'data_manager',
   'text!templates/main.html'
-  ], function($, BB, QueryView, Topics, template) {
+  ], function($, BB, QueryView, Events, Data, template) {
 
 var AppView = BB.View.extend({
 
@@ -23,12 +24,7 @@ var AppView = BB.View.extend({
 		// then initialize children
 		this.render();
 		this.initSubViews();
-		topics = new Topics();
-		topics.fetch({
-			success: function(){
-				console.log(topics);
-			},
-		});
+		Data.loadAll();
 	},
 
 	render: function () {

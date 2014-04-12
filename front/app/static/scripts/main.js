@@ -19,6 +19,7 @@ require.config({
         }
     },
     paths: {
+        d3: '../bower_components/d3/d3',
         jquery: '../bower_components/jquery/jquery',
         backbone: '../bower_components/backbone/backbone',
         text: '../bower_components/requirejs-text/text',

@@ -4,6 +4,9 @@ run:
 serve:
 	grunt --gruntfile ./front/GruntFile.js server
 
+dropdb:
+	dropdb 'explorer'
+
 newdb:
 	createdb --owner bgolder --template template_postgis explorer
 
@@ -22,6 +25,20 @@ install:
 
 update:
 	git pull origin master
+
+getdata:
+	scp athena:datadump.json ./explorer/data/datadump.json
+
+
+### RESETTING THE DATABASE
+# make desouth
+# make sync
+# make schemainit
+# make fakemigrate
+# make loaddata
+
+cleardata:
+	python ./explorer/manage.py flush
 
 loaddata:
 	python ./explorer/manage.py loaddata ./explorer/data/datadump.json
