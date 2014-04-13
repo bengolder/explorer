@@ -11,7 +11,7 @@ function loadCollection( key, coll ) {
 	console.log("fetching", key);
 	coll.fetch({
 		'success':function(){
-			Events.trigger('collectionLoaded', key);
+			Events.trigger('collectionFetched', key);
 		}
 	});
 }
@@ -33,14 +33,14 @@ M.buildRelationGraph = function(colls){
 	console.log("ready to build relation graph with", colls);
 };
 
-Events.on('allCollectionsLoaded', function(colls){
+Events.on('allCollectionsFetched', function(colls){
 	M.buildRelationGraph(colls);
 })
 
-Events.on('collectionLoaded', function(key){
+Events.on('collectionFetched', function(key){
 	M.collectionQueue.remove(key);
 	if( M.collectionQueue.empty() ) {
-		Events.trigger('allCollectionsLoaded', M.collections);
+		Events.trigger('allCollectionsFetched', M.collections);
 	}
 
 });

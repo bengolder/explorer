@@ -10,6 +10,9 @@ var Facultys = BB.Collection.extend({
 	//parse:, // parse the reponse
 	url: config.api_root + 'faculty/',
 	model: Faculty,
+	menuName: function(){
+		return 'faculty';
+	},
 });
 return Facultys;
 });

@@ -2,19 +2,19 @@ define([
   'jquery',
   'backbone',
   'views/query',
+  'views/topic_list',
   'event_manager',
   'data_manager',
   'text!templates/main.html'
-  ], function($, BB, QueryView, Events, Data, template) {
+  ], function($, BB, QueryView, TopicListViz, Events, Data, template) {
 
 var AppView = BB.View.extend({
 
 	el: '#main',
 
 	initSubViews: function () {
-		this.queryView = new QueryView({
-			el:'#controls'
-		});
+		this.queryView = new QueryView();
+		this.$el.find('#controls').append(this.queryView.$el);
 	},
 
 
@@ -24,7 +24,11 @@ var AppView = BB.View.extend({
 		// then initialize children
 		this.render();
 		this.initSubViews();
-		Data.loadAll();
+		var me = this;
+		Events.on('allCollectionsFetched', function(colls){
+			topic_list = new TopicListViz(colls.get('topics'));
+			console.log("built topic list");
+		});
 	},
 
 	render: function () {

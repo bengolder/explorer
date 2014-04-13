@@ -1,33 +1,57 @@
 define([
-'jquery',
-'backbone',
-'views/param',
-'hbs!templates/query_bar'
-], function($, BB, ParamView, template) {
+'jquery', 'backbone',
+'views/menu',
+'viz_manager',
+'event_manager',
+'data_manager',
+], function($, BB, 
+	MenuView, 
+	VisualizationManager, 
+	Events, 
+	Data
+) {
 var QueryView = BB.View.extend({
+className: 'btn-group',
 
 initialize: function () {
 	// this should initialize once
-	// and then should allow subviews to handle their own rendering
+	// it should then handle the creation and destruction of menus,
+	// but shouldn't render them, and shouldn't rerender itself
+	var me = this;
+	Events.on('allCollectionsFetched', function(){
+		me.createDefaultMenus();
+	});
+	Data.loadAll();
+	this.menus = [];
 	this.render();
-	this.initSubViews();
 },
 
-initSubViews: function () {
-	// setup params
-	this.params = [];
-	var child = new ParamView();
-	this.params.push(child);
-	this.$(".query-view").append(child.$el);
+createDefaultMenus:function(){
+	console.log("creating default menus");
+	var vizOptions = VisualizationManager.visualizations;
+	this.addMenu({
+		choice: vizOptions[0],
+		menuItems: vizOptions,
+	});
+	this.addMenu({
+		choice: Data.collections.get('topics'),
+		menuItems: Data.collections.values(),
+	});
 },
 
-render: function () {
-	this.$el.html(template());
+addMenu: function (options) {
+	var rightMostMenu = this.menus[this.menus.length - 1];
+	var newMenu = new MenuView(options, rightMostMenu);
+	if( rightMostMenu !== undefined ) {
+		rightMostMenu.right = newMenu;
+	}
+	this.menus.push(newMenu);
+	this.$el.append(newMenu.$el);
 },
 
-drop_it: function() {
-	// a method for intializing a dropdown
-}
+removeMenu: function (slot) {
+},
+
 
 });
 

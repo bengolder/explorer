@@ -10,6 +10,9 @@ var Topics = BB.Collection.extend({
 	//parse:, // parse the reponse
 	url: config.api_root + 'topic/',
 	model: Topic,
+	menuName: function(){
+		return 'topics';
+	},
 });
 return Topics;
 });

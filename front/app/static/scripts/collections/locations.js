@@ -10,6 +10,9 @@ var Locations = BB.Collection.extend({
 	//parse:, // parse the reponse
 	url: config.api_root + 'location/',
 	model: Location,
+	menuName: function(){
+		return 'locations';
+	},
 });
 return Locations;
 });

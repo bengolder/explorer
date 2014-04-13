@@ -6,8 +6,9 @@ var E = {};
 _.extend(E, BB.Events);
 
 /* SUBSCRIBEABLE EVENTS
- * collectionLoaded, <collectionName>
- * allCollectionsLoaded, <collectionsSet>
+ * collectionFetched, <collectionName>
+ * allCollectionsFetched, <collectionsSet>
+ * specificItemSelected, <item>
  *
  * PLANNED EVENTS (unimplemented)
  * relationGraphBuilt

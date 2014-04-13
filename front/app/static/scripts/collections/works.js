@@ -10,6 +10,9 @@ var Works = BB.Collection.extend({
 	//parse:, // parse the reponse
 	url: config.api_root + 'work/',
 	model: Work,
+	menuName: function(){
+		return 'works';
+	},
 });
 return Works;
 });
