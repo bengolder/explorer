@@ -41,7 +41,10 @@ var Related = {
 						rel.queryText,
 						rel.att_name 
 					);
-					otherColl.relations.get(rel.reverseAttribute).targetCollection = me;
+					var mirror = otherColl.relations.get(rel.reverseAttribute);
+					mirror.targetCollection = me;
+					rel.mirror = mirror;
+					mirror.mirror = rel;
 				}
 			});
 		}
@@ -51,20 +54,26 @@ var Related = {
 			var me = this;
 			this.forEach(function(m){
 				me.relations.forEach(function(att_name, rel){
-					var otherColl = colls.get(rel.targetCollectionName);
-					var fKeys = m.get(att_name);
-					if( fKeys !== undefined && fKeys.length > 0 ) {
-						m.set(att_name, _.map(fKeys, function(k){
-							var other = otherColl.get(k);
-							if( rel.reverseAttribute !== undefined ){
-								if( !other.has(rel.reverseAttribute) ){
-									other.set(rel.reverseAttribute, [m]);
-								} else {
-									other.get(rel.reverseAttribute).push(m);
+					if( rel.mirror !== undefined && rel.mirror.foreignKeyReplaced !== true ){
+						var mirrorTagged = false;
+					}
+					if( rel.foreignKeysReplaced !== true && !mirrorTagged ) {
+						var otherColl = colls.get(rel.targetCollectionName);
+						var fKeys = m.get(att_name);
+						if( fKeys !== undefined && fKeys.length > 0 ) {
+							m.set(att_name, _.map(fKeys, function(k){
+								var other = otherColl.get(k);
+								if( rel.reverseAttribute !== undefined ){
+									if( !other.has(rel.reverseAttribute) ){
+										other.set(rel.reverseAttribute, [m]);
+									} else {
+										other.get(rel.reverseAttribute).push(m);
+									}
 								}
-							}
-							return other;
-						}));
+								return other;
+							}));
+						}
+						rel.foreignKeysReplaced = true;
 					}
 				});
 			});

@@ -43,6 +43,12 @@ M.loadAll = function(){
 		this.collections.forEach( loadCollection );
 };
 
+M.setCTypeLink = function(coll){
+	coll.ctypes.forEach(function(key){
+		M.model_defs.get(key).set('collection', coll);
+	});
+};
+
 M.defineCollections = function(colls){
 
 	var topics = colls.get('topics');
@@ -86,6 +92,7 @@ M.defineCollections = function(colls){
 
 	var faculty = colls.get('faculty');
 	faculty.collectionName = 'faculty';
+	faculty.ctypes = [10];
 	faculty.addRelation( 'current_interests', 'interested in', 'topics', 'of interest to', 'faculty');
 	faculty.addRelation( 'places_lived', 'from', 'locations');
 	// span: faculty with shared works
@@ -95,6 +102,7 @@ M.defineCollections = function(colls){
 	// span: faculty whose publications share publishers
 
 	var locations = colls.get('locations');
+	locations.ctypes = [21];
 	locations.collectionName = 'locations';
 	locations.addParentRelation( 'parent_locations', 'parents', 'children');
 	// span: locations whose works share topics
@@ -107,8 +115,10 @@ M.buildRelationGraph = function(colls){
 	// to spin off web workers to help optimize this process.
 	M.defineCollections(colls);
 	colls.forEach(function (key, coll){
+		M.setCTypeLink(coll);
 		coll.buildRelations(this);
 	});
+	console.log("ctypes", M.model_defs);
 	Events.trigger('relationsBuilt', M.collections);
 };
 
