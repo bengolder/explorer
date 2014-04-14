@@ -8,8 +8,8 @@ function (
 	) {
 var module = {};
 
-List.menuName = function(){return 'list';};
-ShowItem.menuName = function(){return 'show item';};
+List.menuName = 'list';
+ShowItem.menuName = 'show item';
 
 module.visualizations = [
 	List,

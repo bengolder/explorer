@@ -29,7 +29,7 @@ initialize: function () {
 },
 
 createDefaultMenus:function(){
-	console.log("creating default menus", Data.collections.values());
+	console.log("creating default menus");
 	var vizOptions = VisualizationManager.visualizations;
 	this.addMenu({
 		choice: vizOptions[0],

@@ -31,6 +31,11 @@ require.config({
 
 require([
 	'views/app',
+	'underscore',
+	'jquery',
+	'd3',
+	'backbone',
+	'bootstrap',
 ], function (AppView) {
 	var app = new AppView();
 });
