@@ -30,9 +30,7 @@ require.config({
 });
 
 require([
-    'backbone', 
-	'bootstrap',
 	'views/app',
-], function (BB, $, AppView) {
+], function (AppView) {
 	var app = new AppView();
 });
