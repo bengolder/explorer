@@ -36,10 +36,10 @@ createDefaultMenus:function(){
 		choice: vizOptions[0],
 		menuItems: vizOptions,
 	});
-	console.log("Data", Data);
 	this.addMenu({
 		choice: Data.collections.get('topics'),
 		menuItems: Data.collections.values(),
+		choiceHandler: VisualizationManager.newListView,
 	});
 },
 

@@ -1,20 +1,18 @@
 define([
-'views/topic_list',
+'views/list',
 'views/show_item'
 ], 
 function (
-	TopicList,
+	List,
 	ShowItem
 	) {
 var module = {};
 
-console.log("TopicList class:", [TopicList]);
-
-TopicList.menuName = function(){return 'list';};
+List.menuName = function(){return 'list';};
 ShowItem.menuName = function(){return 'show item';};
 
 module.visualizations = [
-	TopicList,
+	List,
 	ShowItem
 	];
 

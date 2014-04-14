@@ -2,7 +2,7 @@ define([
   'jquery',
   'backbone',
   'views/query',
-  'views/topic_list',
+  'views/list',
   'event_manager',
   'data_manager',
   'text!templates/main.html'
