@@ -46,7 +46,7 @@ class ResearchInitiativeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 class ContentTypeViewSet(viewsets.ModelViewSet):
-    queryset = ContentType.objects.all()
+    queryset = ContentType.objects.filter(app_label='mit')
     serializer_class = ContentTypeSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
