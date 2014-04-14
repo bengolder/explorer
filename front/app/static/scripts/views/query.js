@@ -21,6 +21,9 @@ initialize: function () {
 	Events.on('relationsBuilt', function(){
 		me.createDefaultMenus();
 	});
+	Events.on('foreignKeysReplaced', function(colls){
+		console.log("topics with keys", colls.get('topics'));
+	});
 	Data.loadAll();
 	this.menus = [];
 	this.render();
