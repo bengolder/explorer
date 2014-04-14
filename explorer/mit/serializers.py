@@ -1,5 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 
+from django.contrib.contenttypes.models import ContentType
+
 from mit.models import (
         Faculty,
         Work,
@@ -15,6 +17,9 @@ from mit.models import (
         Colloquium,
         )
 
+class ContentTypeSerializer(ModelSerializer):
+    class Meta:
+        model = ContentType
 
 class FacultySerializer(ModelSerializer):
     class Meta:

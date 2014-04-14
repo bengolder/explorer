@@ -5,6 +5,7 @@ from mit.api_viewsets import (
         FacultyViewSet,
         WorkViewSet,
         ResearchInitiativeViewSet,
+        ContentTypeViewSet,
         )
 
 router = routers.DefaultRouter()
@@ -13,4 +14,5 @@ router.register('location', LocationViewSet)
 router.register('faculty', FacultyViewSet)
 router.register('work', WorkViewSet)
 router.register('lab', ResearchInitiativeViewSet)
+router.register('models', ContentTypeViewSet)
 urlpatterns = router.urls

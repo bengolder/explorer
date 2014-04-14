@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
+from django.contrib.contenttypes.models import ContentType
+
 from mit.models import (
         Faculty,
         Work,
@@ -10,6 +12,7 @@ from mit.models import (
         )
 
 from mit.serializers import (
+        ContentTypeSerializer,
         TopicSerializer,
         LocationSerializer,
         FacultySerializer,
@@ -40,6 +43,11 @@ class WorkViewSet(viewsets.ModelViewSet):
 class ResearchInitiativeViewSet(viewsets.ModelViewSet):
     queryset = ResearchInitiative.objects.all()
     serializer_class = ResearchInitiativeSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+class ContentTypeViewSet(viewsets.ModelViewSet):
+    queryset = ContentType.objects.all()
+    serializer_class = ContentTypeSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
