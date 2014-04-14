@@ -8,6 +8,7 @@ _.extend(E, BB.Events);
 /* SUBSCRIBEABLE EVENTS
  * collectionFetched, <collectionName>
  * allCollectionsFetched, <collectionsSet>
+ * relationsBuilt, <collectionsSet>
  * specificItemSelected, <item>
  *
  * PLANNED EVENTS (unimplemented)

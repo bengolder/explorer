@@ -18,7 +18,7 @@ initialize: function () {
 	// it should then handle the creation and destruction of menus,
 	// but shouldn't render them, and shouldn't rerender itself
 	var me = this;
-	Events.on('allCollectionsFetched', function(){
+	Events.on('relationsBuilt', function(){
 		me.createDefaultMenus();
 	});
 	Data.loadAll();
@@ -33,6 +33,7 @@ createDefaultMenus:function(){
 		choice: vizOptions[0],
 		menuItems: vizOptions,
 	});
+	console.log("Data", Data);
 	this.addMenu({
 		choice: Data.collections.get('topics'),
 		menuItems: Data.collections.values(),

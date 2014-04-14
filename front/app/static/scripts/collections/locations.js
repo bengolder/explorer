@@ -3,9 +3,10 @@ define([
 'underscore',
 'backbone',
 'appconfig',
+'collections/related',
 'models/location'
-], function ($, _, BB, config, Location) {
-var Locations = BB.Collection.extend({
+], function ($, _, BB, config, Related, Location) { 
+var Locations = BB.Collection.extend(_.extend(Related, {
 	//comparator:,
 	//parse:, // parse the reponse
 	url: config.api_root + 'location/',
@@ -13,6 +14,6 @@ var Locations = BB.Collection.extend({
 	menuName: function(){
 		return 'locations';
 	},
-});
+}));
 return Locations;
 });
