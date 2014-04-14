@@ -24,13 +24,12 @@ initialize: function () {
 	Events.on('foreignKeysReplaced', function(colls){
 		console.log("topics with keys", colls.get('topics'));
 	});
-	Data.loadAll();
 	this.menus = [];
 	this.render();
 },
 
 createDefaultMenus:function(){
-	console.log("creating default menus");
+	console.log("creating default menus", Data.collections.values());
 	var vizOptions = VisualizationManager.visualizations;
 	this.addMenu({
 		choice: vizOptions[0],
@@ -39,7 +38,6 @@ createDefaultMenus:function(){
 	this.addMenu({
 		choice: Data.collections.get('topics'),
 		menuItems: Data.collections.values(),
-		choiceHandler: VisualizationManager.newListView,
 	});
 },
 

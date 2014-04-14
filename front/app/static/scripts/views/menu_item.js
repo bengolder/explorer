@@ -15,11 +15,11 @@ initialize: function (item, menu) {
 },
 render: function(){
 	this.setElement(template({
-		itemName: this.item.menuName(),
+		itemName: this.item.menuName,
 	}));
 },
 select: function() {
-	this.menu.chooseItem(this.item.menuName());
+	this.menu.chooseItem(this.item.menuName);
 },
 });
 return MenuItemView;

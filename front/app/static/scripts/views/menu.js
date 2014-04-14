@@ -51,7 +51,7 @@ addMenuItem: function(item){
 		});
 	} else {
 		var menuItem = new MenuItemView(item, this);
-		this.map.set(item.menuName(), menuItem);
+		this.map.set(item.menuName, menuItem);
 		this.dropdown.append(menuItem.$el);
 		if( item == this.choice ) {
 			menuItem.$el.addClass("chosen");
@@ -63,7 +63,7 @@ chooseItem: function(menuName){
 	var menuItem = this.map.get(menuName);
 	Events.trigger("menuItemChosen", menuItem);
 	// replace the current choice with this one
-	var currentChoice = this.map.get(this.choice.menuName());
+	var currentChoice = this.map.get(this.choice.menuName);
 	currentChoice.$el.removeClass("chosen");
 	this.choice = menuItem.item;
 	menuItem.$el.addClass("chosen");
@@ -75,7 +75,7 @@ renderButton: function(){
 	if( this.choice == undefined ) { 
 		text = " ";
 	} else {
-		text = this.choice.menuName();
+		text = this.choice.menuName;
 	}
 	var element = buttonTemplate({
 		choiceText: text

@@ -24,11 +24,6 @@ var AppView = BB.View.extend({
 		// then initialize children
 		this.render();
 		this.initSubViews();
-		var me = this;
-		Events.on('allCollectionsFetched', function(colls){
-			topic_list = new TopicListViz(colls.get('topics'));
-			console.log("built topic list");
-		});
 	},
 
 	render: function () {
