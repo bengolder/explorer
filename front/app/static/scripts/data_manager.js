@@ -54,11 +54,13 @@ M.defineCollections = function(colls){
 	var topics = colls.get('topics');
 	topics.collectionName = 'topics';
 	topics.ctypes = [20];
+	M.setCTypeLink(topics);
 	topics.addParentRelation('parent_topics', 'parents', 'children');
 
 	var works = colls.get('works');
 	works.collectionName = 'works';
 	works.ctypes = [11, 12, 13, 14, 15, 16, 17, 18, 19];
+	M.setCTypeLink(works);
 	works.addRelation( 'authors', 'by', 'faculty', 'who worked on', 'works');
 	works.addRelation( 'locations', 'related to', 'locations', 'related to', 'works');
 	works.addRelation( 'topics', 'related to', 'topics', 'related to', 'works');
@@ -69,6 +71,7 @@ M.defineCollections = function(colls){
 	var labs = new Works(works.where({'polymorphic_ctype': 13}));
 	labs.collectionName = 'labs';
 	labs.ctypes = [13];
+	M.setCTypeLink(labs);
 	labs.menuName = function(){return 'labs';};
 	labs.addRelation( 'subprojects', 'responsible for', 'works', 'originating from', 'labs' );
 	colls.set('labs', labs);
@@ -79,6 +82,7 @@ M.defineCollections = function(colls){
 	}));
 	publications.collectionName = 'publications';
 	publications.ctypes = [16, 17, 18, 19];
+	M.setCTypeLink(publications);
 	publications.menuName = function(){return 'publications';};
 	colls.set('publications', publications);
 	// span: publications from 
@@ -86,6 +90,7 @@ M.defineCollections = function(colls){
 	var books = new Works(works.where({'polymorphic_ctype': 17}));
 	books.collectionName = 'books';
 	books.ctypes = [17];
+	M.setCTypeLink(books);
 	books.menuName = function(){return 'books';};
 	console.log("books",books);
 	colls.set('books', books);
@@ -93,6 +98,7 @@ M.defineCollections = function(colls){
 	var faculty = colls.get('faculty');
 	faculty.collectionName = 'faculty';
 	faculty.ctypes = [10];
+	M.setCTypeLink(faculty);
 	faculty.addRelation( 'current_interests', 'interested in', 'topics', 'of interest to', 'faculty');
 	faculty.addRelation( 'places_lived', 'from', 'locations');
 	// span: faculty with shared works
@@ -103,6 +109,7 @@ M.defineCollections = function(colls){
 
 	var locations = colls.get('locations');
 	locations.ctypes = [21];
+	M.setCTypeLink(locations);
 	locations.collectionName = 'locations';
 	locations.addParentRelation( 'parent_locations', 'parents', 'children');
 	// span: locations whose works share topics
@@ -115,7 +122,6 @@ M.buildRelationGraph = function(colls){
 	// to spin off web workers to help optimize this process.
 	M.defineCollections(colls);
 	colls.forEach(function (key, coll){
-		M.setCTypeLink(coll);
 		coll.buildRelations(this);
 	});
 	console.log("ctypes", M.model_defs);
