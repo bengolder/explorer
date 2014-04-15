@@ -35,7 +35,9 @@ function instaCollection( options ){
 }
 
 function relatedCollection(options){
-	return instaCollection( _.extend(Related, options) );
+	options = options || {};
+	var C = instaCollection( _.extend(Related, options) );
+	return C;
 }
 
 M.loadDefinitions = function(){
@@ -75,24 +77,29 @@ M.defineCollection = function(conf){
 	var Collection, coll;
 	if( !_.has(conf, 'parentCollection') ){
 		// make a new class
-		Collection = relatedCollection(conf);
-		coll = new Collection();
+		Collection = relatedCollection();
+		_.extend(conf, {'config':conf});
+		coll = new Collection(conf);
 	} else {
 		// filter an existing class to make a new collection
 		// this assumes that the parent already exists and has been 
 		// fetched
-		var parentColl = M.collections.get( conf.parentCollection );
-		Collection = parentColl.sourceClass;
+		var parentColl = M.collections.get(conf.parentCollection);
+		var parentConf = parentColl.config;
+		conf.relations = [].concat.apply([], _.filter(
+				[parentConf.relations, conf.relations], function(r){
+					return r !== undefined;
+				}))
+		conf = _.extend(parentConf, conf);
+		_.extend(conf, {'config':conf});
+		Collection = relatedCollection();
 		coll = new Collection( 
-				parentColl.filter(
-					function(m){
-						return _.contains( conf.ctypes, 
-								m.get('polymorphic_ctype')
-						);
-				})
+			conf,
+			parentColl.filter(function(m){
+				return _.contains(conf.ctypes, m.get('polymorphic_ctype')); 
+			})
 		);
 		// override parent settings with child
-		_.extend(coll, conf);
 	}
 	coll.sourceClass = Collection;
 	M.collections.set(conf.collectionName, coll);
@@ -125,7 +132,6 @@ M.buildRelationGraph = function(){
 	M.collections.forEach(function (key, coll){
 		coll.buildRelations(M.collections);
 	});
-	console.log("ctypes", M.ctypes);
 	Events.trigger('relationsBuilt', M.collections);
 };
 
