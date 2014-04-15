@@ -1,5 +1,6 @@
 define([
 'd3',
+'underscore',
 'backbone',
 'event_manager',
 'views/menu_item',
@@ -8,6 +9,7 @@ define([
 'hbs!templates/dropdown',
 ], function(
 	d3, 
+	_,
 	BB, 
 	Events,
 	MenuItemView, 
@@ -25,6 +27,7 @@ initialize: function (options, left, right) {
 	this.map = d3.map();
 	this.options = options;
 	this.choice = this.options.choice;
+	this.choiceHandler = options.choiceHandler;
 	this.left = left;
 	this.right = right;
 	this.render();
@@ -61,7 +64,10 @@ addMenuItem: function(item){
 
 chooseItem: function(menuName){
 	var menuItem = this.map.get(menuName);
-	Events.trigger("menuItemChosen", menuItem);
+	Events.trigger("menuItemChosen", menuItem, this);
+	if( _.has(this, 'choiceHandler') ) {
+		this.choiceHandler(menuItem.item);
+	}
 	// replace the current choice with this one
 	var currentChoice = this.map.get(this.choice.menuName);
 	currentChoice.$el.removeClass("chosen");

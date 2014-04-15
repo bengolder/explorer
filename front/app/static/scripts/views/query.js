@@ -1,12 +1,12 @@
 define([
 'jquery', 'backbone',
 'views/menu',
-'viz_manager',
+'views/list',
 'event_manager',
 'data_manager',
 ], function($, BB, 
 	MenuView, 
-	VisualizationManager, 
+	List,
 	Events, 
 	Data
 ) {
@@ -24,21 +24,29 @@ initialize: function () {
 	Events.on('foreignKeysReplaced', function(colls){
 		console.log("topics with keys", colls.get('topics'));
 	});
+	this.chart = null;
 	this.menus = [];
 	this.render();
 },
 
 createDefaultMenus:function(){
 	console.log("creating default menus");
-	var vizOptions = VisualizationManager.visualizations;
+	var topics = Data.collections.get('topics');
 	this.addMenu({
-		choice: vizOptions[0],
-		menuItems: vizOptions,
-	});
-	this.addMenu({
-		choice: Data.collections.get('topics'),
+		choice: topics,
 		menuItems: Data.collections.values(),
-	});
+		choiceHandler: this.collectionSelected,
+	}).chooseItem('topics');
+},
+
+collectionSelected: function(coll){
+	// make new list view
+	if( this.chart ){
+		this.chart.$el.remove();
+	}
+	var listView = new List(coll);
+	$("#chart").append(listView.$el);
+	this.chart = listView;
 },
 
 addMenu: function (options) {
@@ -49,6 +57,7 @@ addMenu: function (options) {
 	}
 	this.menus.push(newMenu);
 	this.$el.append(newMenu.$el);
+	return newMenu;
 },
 
 removeMenu: function (slot) {

@@ -4,9 +4,12 @@ define([
   'backbone',
   'appconfig',
   'event_manager',
+  'models/base_model',
   'collections/related',
 ], function( d3, _, BB,
-	config, Events, Related ) {
+	config, Events, 
+	BaseModelOpts,
+	Related ) {
 
 var M = {};
 M.collections = d3.map();
@@ -53,6 +56,14 @@ M.setCTypeLink = function(coll){
 	});
 };
 
+M.defineModel = function(conf){
+	var M = BB.Model.extend(
+		_.extend(BaseModelOpts, {
+			displayKey: conf.display,
+	}));
+	return M;
+};
+
 M.defineCollection = function(conf){
 	// add ctypes keys attribute
 	conf.ctypes = _.map(conf.ctypeNames, 
@@ -60,6 +71,7 @@ M.defineCollection = function(conf){
 			var ctype = M.ctypes.findWhere({'model': ctypeName});
 			return ctype.id;
 	});
+	conf.model = M.defineModel(conf);
 	var Collection, coll;
 	if( !_.has(conf, 'parentCollection') ){
 		// make a new class
