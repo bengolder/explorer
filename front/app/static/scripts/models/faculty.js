@@ -15,10 +15,17 @@ spans: {
 	'bridge_attribute': 'current_interests',
 	'other_attribute': 'faculty',
 },
+
+'related_locations':{
+	'bridge_attribute': 'works',
+	'other_attribute': 'locations',
+},
+
 'work_interests':{
 	'bridge_attribute': 'works',
 	'other_attribute': 'topics',
 }
+
 },
 
 };
