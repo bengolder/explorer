@@ -15,6 +15,10 @@ spans: {
 		'bridge_attribute': 'works',
 		'other_attribute': 'authors',
 	},
+	'related_locations': {
+		'bridge_attribute': 'works',
+		'other_attribute': 'locations',
+	},
 },
 
 };

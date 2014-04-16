@@ -1,50 +1,51 @@
 <!--topic-->
 <div class="title-row">
-  <span class="title topic-name">
+  <span class="item_title topic_name">
     {{display}}
   </span>
-  {{#if parents}}:
-  <ul class="parents">
-    {{#each parents}}
-      <li class="parent topic-name">{{display}}</li>
-    {{/each}}
-  </ul>
-  {{/if}}
+  <span class="prime_relations">
+
+    {{#if works}}
+    <span class="prime_relation works">
+      <span class="count">
+        {{works.length}}
+      </span>
+      <span class="relation_text">
+        related projects
+      </span>
+    </span>
+    {{/if }}
+
+    {{#if related_faculty}}
+    <span class="prime_relation related_faculty">
+      <span class="relation_text">
+        by
+      </span>
+      <span class="count">
+        {{related_faculty.length}}
+      </span>
+      <span class="relation_text">
+        faculty
+      </span>
+    </span>
+    {{/if }}
+
+    {{#if related_locations}}
+    <span class="prime_relation related_locations">
+      <span class="related_locations">
+        in
+      </span>
+      <span class="count">
+        {{related_locations.length}}
+      </span>
+      <span class="relation_text">
+        locations
+      </span>
+    </span>
+    {{/if }}
+
+  </span>
 </div>
-{{#if related_faculty}}
-<div class="related_faculty">
-  <div class="related_faculty-count">
-    worked on by {{related_faculty.length}} faculty
-  </div>
-  <ul class="related_faculty-items">
-{{#each related_faculty}}
-    <li class="faculty">
-    {{related_item.attributes.full_name}} ({{bridges.length}} works)
-    </li>
-{{/each}}
-  </ul>
-</div>
-{{/if}}
-{{#if relations}}
-<ul class="relations">
-  {{#each relations}}
-  <li class="relation">
-    <span class="relation-description">
-      {{display}}
-    </span>
-    <span class="relation-count">
-      {{count}}
-    </span>
-    <span class="relation-description">
-      {{type}}
-    </span>
-  </li>
-  {{/each}}
-  {{#each related_topics}}
-  {{related_item.attributes.name}} ({{bridges.length}} shared works)
-  {{/each}}
-</ul>
-{{/if}}
 <!--spans:-->
   <!--?partner_topics_by_work-->
   <!--?partner_topics_by_faculty-->

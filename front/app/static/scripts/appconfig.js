@@ -18,6 +18,7 @@ config.collections = [
 	  'url': api('topic/'),
 	  'display': 'name',
 	  'menuName': 'topics',
+	  'niceTypeName': 'topic',
 	  'ctypeNames': ['topic'],
 	  'parentRelation': ['topics', 'parent_topics', 'parents', 'children'],
 	},
@@ -26,6 +27,7 @@ config.collections = [
 	  'url': api('location/'),
 	  'display': 'name',
 	  'menuName': 'locations',
+	  'niceTypeName': 'location',
 	  'ctypeNames': ['location'],
 	  'parentRelation': ['locations', 'parent_locations', 'parents', 'children'],
 	  // span: locations whose works share topics
@@ -36,6 +38,7 @@ config.collections = [
 	  'url': api('faculty/'),
 	  'display': 'full_name',
 	  'menuName': 'faculty',
+	  'niceTypeName': 'faculty',
 	  'ctypeNames': ["faculty"],
 	  'relations':[
 		  ['faculty', 'current_interests', 'interested in', 'topics', 'of interest to', 'faculty'],
@@ -68,6 +71,7 @@ config.collections = [
 	{ 'collectionName': 'labs',
 	  'display': 'title',
 	  'menuName': 'labs',
+	  'niceTypeName': 'lab',
 	  'parentCollection':'works',
 	  'ctypeNames': ['researchinitiative'],
 	  'relations': [
@@ -78,6 +82,7 @@ config.collections = [
 	{ 'collectionName': 'publications',
 	  'display': 'title',
 	  'menuName': 'publications',
+	  'niceTypeName': 'publication',
 	  'parentCollection':'works',
 	  'ctypeNames': ["publication", "book", "article", "journalarticle"],
 	},
@@ -85,6 +90,7 @@ config.collections = [
 	{ 'collectionName': 'books',
 	  'display': 'title',
 	  'menuName': 'books',
+	  'niceTypeName': 'book',
 	  'parentCollection':'works',
 	  'ctypeNames': ["book"],
 	},
