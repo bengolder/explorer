@@ -1,0 +1,50 @@
+<!--faculty-->
+<div class="title-row">
+  <span class="title faculty-name">
+    {{display}}
+  </span> {{#if website}}
+    <a href="{{website}}" target="_blank">
+      <span class="glyphicon glyphicon-link"></span>
+    </a> {{/if}}
+
+</div>
+<div class="topics">
+  {{#if work_interests}}
+  <span class="subtitle">
+    works on:
+  </span>
+  {{/if}}
+  {{#each work_interests}}
+  <span class="topic">
+    {{related_item.attributes.name}} ({{bridges.length}})
+  </span>
+  {{/each}}
+</div>
+{{#if relations}}
+<ul class="relations">
+  {{#each relations}}
+  <li class="relation">
+    <span class="relation-description">
+      {{display}}
+    </span>
+    <span class="relation-count">
+      {{count}}
+    </span>
+    <span class="relation-description">
+      {{type}}
+    </span>
+  </li>
+  {{/each}}
+  {{#each collaborators}}
+  <li class="relation">
+  collaborated with {{related_item.attributes.full_name}} (on {{bridges.length}} works)
+  </li>
+  {{/each}}
+  {{#each same_interests}}
+  <li class="relation">
+  shares {{bridges.length}} current interests with {{related_item.attributes.full_name}}
+  </li>
+  {{/each}}
+</ul>
+{{/if}}
+

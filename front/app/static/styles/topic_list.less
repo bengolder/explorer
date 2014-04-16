@@ -3,8 +3,16 @@
 #chart {
 }
 
+span.topic:after {
+    content: ','
+}
+
+span.topic:last-child:after {
+    content:''
+}
+
 .list-column {
-    width: @em * 24;
+    width: @em * 48;
     border-right: 1px solid @black;
     padding-bottom: @vu * 6;
 }
@@ -22,5 +30,22 @@
 li.chosen {
     display: none;
 }
+
+.topic-name {
+    font-size: @em * 0.8;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+ul.relations {
+    list-style-type: none;
+    li.relation {
+        font-style: italic;
+    }
+    .relation-count {
+        font-weight: bold;
+    }
+}
+
 
 

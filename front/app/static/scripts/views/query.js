@@ -31,12 +31,14 @@ initialize: function () {
 
 createDefaultMenus:function(){
 	console.log("creating default menus");
-	var topics = Data.collections.get('topics');
+	var items = Data.collections.keys();
+	var defaultChoiceKey = items[Math.floor(Math.random()*items.length)];
+	var choice = Data.collections.get(defaultChoiceKey);
 	this.addMenu({
-		choice: topics,
+		choice: choice,
 		menuItems: Data.collections.values(),
 		choiceHandler: this.collectionSelected,
-	}).chooseItem('topics');
+	}).chooseItem(defaultChoiceKey);
 },
 
 collectionSelected: function(coll){

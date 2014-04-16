@@ -5,14 +5,26 @@ define([
   'appconfig',
   'event_manager',
   'models/base_model',
+  'models/topic',
+  'models/faculty',
+  'models/work',
   'collections/related',
 ], function( d3, _, BB,
 	config, Events, 
 	BaseModelOpts,
+	TopicBase,
+	FacultyBase,
+	WorkBase,
 	Related ) {
 
 var M = {};
 M.collections = d3.map();
+
+var modelBases = {
+	'works':WorkBase,
+	'topics':TopicBase,
+	'faculty':FacultyBase
+};
 
 function fetchCollection( key, coll ) {
 	console.log("fetching", key);
@@ -59,8 +71,14 @@ M.setCTypeLink = function(coll){
 };
 
 M.defineModel = function(conf){
-	var M = BB.Model.extend(
-		_.extend(BaseModelOpts, {
+	var M;
+	var base_opts = _.clone(BaseModelOpts);
+	if( _.has(modelBases, conf.collectionName)){
+		var model_opts = modelBases[conf.collectionName];
+		_.extend(base_opts, modelBases[conf.collectionName]);
+	}
+	M = BB.Model.extend(
+		_.extend(base_opts, {
 			displayKey: conf.display,
 	}));
 	return M;
@@ -91,14 +109,13 @@ M.defineCollection = function(conf){
 					return r !== undefined;
 				}))
 		conf = _.extend(parentConf, conf);
-		_.extend(conf, {'config':conf});
-		Collection = relatedCollection();
-		coll = new Collection( 
-			conf,
-			parentColl.filter(function(m){
+		conf = _.extend(conf, {'config':conf});
+		Collection = relatedCollection(conf);
+		var models = parentColl.filter(function(m){
 				return _.contains(conf.ctypes, m.get('polymorphic_ctype')); 
-			})
-		);
+			});
+		conf.models = models;
+		coll = new Collection( models);
 		// override parent settings with child
 	}
 	coll.sourceClass = Collection;

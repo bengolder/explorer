@@ -19,7 +19,7 @@ config.collections = [
 	  'display': 'name',
 	  'menuName': 'topics',
 	  'ctypeNames': ['topic'],
-	  'parentRelation': ['parent_topics', 'parents', 'children'],
+	  'parentRelation': ['topics', 'parent_topics', 'parents', 'children'],
 	},
 
 	{ 'collectionName': 'locations',
@@ -27,7 +27,7 @@ config.collections = [
 	  'display': 'name',
 	  'menuName': 'locations',
 	  'ctypeNames': ['location'],
-	  'parentRelation': ['parent_locations', 'parents', 'children'],
+	  'parentRelation': ['locations', 'parent_locations', 'parents', 'children'],
 	  // span: locations whose works share topics
 	  // span: locations whose works share authors
 	},
@@ -38,9 +38,10 @@ config.collections = [
 	  'menuName': 'faculty',
 	  'ctypeNames': ["faculty"],
 	  'relations':[
-		  ['current_interests', 'interested in', 'topics', 'of interest to', 'faculty'],
-		  ['places_lived', 'from', 'locations'],
+		  ['faculty', 'current_interests', 'interested in', 'topics', 'of interest to', 'faculty'],
+		  ['faculty', 'places_lived', 'from', 'locations'],
 		  ],
+	  // span: topics of their works
 	  // span: faculty with shared works
 	  // span: faculty with shared interests
 	  // span: faculty whose works share topics
@@ -55,9 +56,9 @@ config.collections = [
 	  'ctypeNames': [ "work", "project", "researchinitiative", "publicationformat",
 		"publisher", "publication", "book", "article", "journalarticle" ],
 	  'relations':[
-		  ['authors', 'by', 'faculty', 'who worked on', 'works'],
-		  ['locations', 'related to', 'locations', 'related to', 'works'],
-		  ['topics', 'related to', 'topics', 'related to', 'works'],
+		  ['works', 'authors', 'by', 'faculty', 'who worked on', 'works'],
+		  ['works', 'locations', 'related to', 'locations', 'related to', 'works'],
+		  ['works', 'topics', 'related to', 'topics', 'related to', 'works'],
 		  ],
 	  // span: works with shared authors
 	  // span: works with shared topics
@@ -70,7 +71,7 @@ config.collections = [
 	  'parentCollection':'works',
 	  'ctypeNames': ['researchinitiative'],
 	  'relations': [
-		  ['subprojects', 'responsible for', 'works', 'originating from', 'labs'],
+		  ['labs', 'subprojects', 'responsible for', 'works', 'originating from', 'labs'],
 		  ],
 	},
 

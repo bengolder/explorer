@@ -10,6 +10,7 @@ function (d3, BB, Events, Viz) {
 	// Ideally, their parent view will initialize them with the proper data.
 var List = BB.View.extend({
 	className: 'list-column',
+
 	initialize: function(data){
 		// data is a collection
 		// we may want to let the collection point 
@@ -17,16 +18,19 @@ var List = BB.View.extend({
 		this.data = data;
 		this.render();
 	},
+
 	render: function(){
 		// we will want this to conditionally render the appropriate list view
 		// for each item
+		var me = this;
 		d3.select(this.el)
 			.selectAll('div')
 			.data(this.data.models).enter()
 			.append(function(d){
-				var view = Viz.makeListView(d, {'className':'list-item'});
+				var view = Viz.makeListView(d);
 				return view.el;
 			}).on('click', function(d){
+				console.log("clicked on", d.attributes);
 				Events.trigger('specificItemSelected', d);
 			});
 	},

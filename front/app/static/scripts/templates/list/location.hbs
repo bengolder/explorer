@@ -1,0 +1,13 @@
+<!--location-->
+<div class="item-title">
+{{name}}
+</div>
+{{#if works}}
+<ul class="relations">
+{{#each works}}
+  <li class="relation">
+  {{attributes.title}}
+  </li>
+{{/each}}
+</ul>
+{{/if}}

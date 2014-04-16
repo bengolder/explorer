@@ -17,9 +17,10 @@ var Related = {
 		}
 	},
 
-	addRelation: function (att_name, qText, target, 
+	addRelation: function ( source, att_name, qText, target, 
 					 reverseQText, reverse_att_name){
 		this.relations.set(att_name, {
+			'sourceCollectionName': source,
 			'att_name': att_name,
 			'queryText': qText,
 			'reverseQueryText': reverseQText,
@@ -46,14 +47,16 @@ var Related = {
 				rel.targetCollection = otherColl;
 				// add reverse relation to other collection
 				if( _.has(rel, 'reverseAttribute') ) {
-					otherColl.addRelation( rel.reverseAttribute, 
+					otherColl.addRelation( 
+						rel.targetCollectionName,
+						rel.reverseAttribute, 
 						rel.reverseQueryText,
-						me.collectionName,
+						rel.sourceCollectionName,
 						rel.queryText,
 						rel.att_name 
 					);
 					var mirror = otherColl.relations.get(rel.reverseAttribute);
-					mirror.targetCollection = me;
+					mirror.targetCollection = colls.get(rel.sourceCollectionName);
 					rel.mirror = mirror;
 					mirror.mirror = rel;
 				}
