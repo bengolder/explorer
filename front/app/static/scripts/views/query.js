@@ -32,8 +32,7 @@ initialize: function () {
 createDefaultMenus:function(){
 	console.log("creating default menus");
 	var items = Data.collections.keys();
-	//var defaultChoiceKey = items[Math.floor(Math.random()*items.length)];
-	var defaultChoiceKey = 'locations';
+	var defaultChoiceKey = items[Math.floor(Math.random()*items.length)];
 	var choice = Data.collections.get(defaultChoiceKey);
 	this.addMenu({
 		choice: choice,
