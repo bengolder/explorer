@@ -1,2 +1,134 @@
 <!--work-->
-{{title}}
+<div class="title_row">
+  <span class="item_title work_title">
+    {{title}}
+  </span> 
+</div>
+
+<div class="prime_relations">
+
+    {{#if authors}}
+    <span class="prime_relation authors">
+      {{#each authors}}
+      <span class="faculty_name">
+        {{attributes.full_name}}
+      </span>
+      {{/each}}
+    </span>
+    {{/if }}
+
+  </div>
+
+</div>
+
+<div class="details">
+
+  <div class="work_details">
+  {{#if website}}
+    <span class="detail">
+    <a href="{{website}}" target="_blank">
+      website
+      <span class="glyphicon glyphicon-link"> </span>
+    </a> 
+    </span>
+  {{/if}}
+
+  </div>
+  
+  <ul class="relations">
+
+    {{#if topics}}
+    <li class="relation">
+      <span class="relation_label">Topics</span>
+      <ul class="topics">
+        {{#each topics}}
+        <li class="related_item topic">
+          <span class="topic_name"> {{attributes.name}} </span>
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/if}}
+
+    {{#if locations}}
+    <li class="relation">
+      <span class="relation_label">Locations</span>
+      <ul class="locations">
+        {{#each locations}}
+        <li class="related_item location">
+          <span class="location_name"> {{attributes.name}} </span>
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/if}}
+
+
+    {{#if same_authors}}
+    <li class="relation">
+      <span class="relation_label">Other work by the same faculty</span>
+      <ul class="same_authors">
+        {{#each same_authors}}
+        <li class="related_item same_author">
+          <span class="work_title"> {{related_item.attributes.title}} </span>
+          <span class="authors"> 
+            {{#each related_item.attributes.authors}}
+            <span class="faculty_name">
+              {{attributes.full_name}}
+            </span>
+            {{/each}}
+          </span>
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/if}}
+
+    {{#if same_topics}}
+    <li class="relation">
+      <span class="relation_label">Other work on the same topics</span>
+      <ul class="same_topics">
+        {{#each same_topics}}
+        <li class="related_item same_topic">
+          <span class="work_title"> {{related_item.attributes.title}} </span>
+          <span class="authors"> 
+            {{#each related_item.attributes.authors}}
+            <span class="faculty_name">
+              {{attributes.full_name}}
+            </span>
+            {{/each}}
+          </span>
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/if}}
+
+    {{#if same_locations}}
+    <li class="relation">
+      <span class="relation_label">Other work relating to the same locations</span>
+      <ul class="same_locations">
+        {{#each same_locations}}
+        <li class="related_item same_location">
+          <span class="location_name">
+            {{#each bridges}}
+             {{attributes.name}}
+            {{/each}}|
+          </span>
+          <span class="work_title"> {{related_item.attributes.title}} </span>
+          <span class="authors"> 
+            {{#each related_item.attributes.authors}}
+            <span class="faculty_name">
+              {{attributes.full_name}}
+            </span>
+            {{/each}}
+          </span>
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/if}}
+
+  </ul>
+
+</div>

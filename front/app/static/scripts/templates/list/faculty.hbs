@@ -1,6 +1,6 @@
 <!--faculty-->
 <div class="title_row">
-  <span class="title faculty_name">
+  <span class="item_title faculty_name">
     {{full_name}}
   </span> 
   <span class="prime_relations">
@@ -16,20 +16,6 @@
     </span>
     {{/if }}
 
-    {{#if related_locations}}
-    <span class="prime_relation related_locations">
-      <span class="relation_text">
-        in
-      </span>
-      <span class="count">
-        {{related_locations.length}}
-      </span>
-      <span class="relation_text">
-        locations
-      </span>
-    </span>
-    {{/if }}
-
     {{#if collaborators}}
     <span class="prime_relation collaborators">
       <span class="relation_text">
@@ -40,6 +26,20 @@
       </span>
       <span class="relation_text">
         collaborators
+      </span>
+    </span>
+    {{/if }}
+
+    {{#if related_locations}}
+    <span class="prime_relation related_locations">
+      <span class="relation_text">
+        in
+      </span>
+      <span class="count">
+        {{related_locations.length}}
+      </span>
+      <span class="relation_text">
+        locations
       </span>
     </span>
     {{/if }}
@@ -73,23 +73,9 @@
   
   <ul class="relations">
 
-    {{#if work_interests}}
-    <li class="relation">
-      <span class="relation_label">Research Topics:</span>
-      <ul class="work_interests">
-        {{#each work_interests}}
-        <li class="related_item topic">
-          <span class="topic_name"> {{related_item.attributes.name}} </span>
-          (<span class="count">{{bridges.length}}</span> projects)
-        </li>
-        {{/each}}
-      </ul>
-    </li>
-    {{/if}}
-
     {{#if works}}
     <li class="relation">
-      <span class="relation_label"> Related Works:</span>
+      <span class="relation_label">Projects:</span>
       <ul class="works">
         {{#each works}}
         <li class="related_item work">
@@ -118,11 +104,25 @@
 
     {{#if related_locations}}
     <li class="relation">
-      <span class="relation_label">Reseach Locations:</span>
+      <span class="relation_label">Research Locations:</span>
       <ul class="related_locations">
         {{#each related_locations}}
         <li class="related_item location">
           <span class="location_name"> {{related_item.attributes.name}} </span>
+          (<span class="count">{{bridges.length}}</span> projects)
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/if}}
+
+    {{#if work_interests}}
+    <li class="relation">
+      <span class="relation_label">Research Topics:</span>
+      <ul class="work_interests">
+        {{#each work_interests}}
+        <li class="related_item topic">
+          <span class="topic_name"> {{related_item.attributes.name}} </span>
           (<span class="count">{{bridges.length}}</span> projects)
         </li>
         {{/each}}
