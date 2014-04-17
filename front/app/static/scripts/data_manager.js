@@ -8,6 +8,7 @@ define([
   'models/topic',
   'models/faculty',
   'models/work',
+  'models/location',
   'collections/related',
 ], function( d3, _, BB,
 	config, Events, 
@@ -15,6 +16,7 @@ define([
 	TopicBase,
 	FacultyBase,
 	WorkBase,
+	LocationBase,
 	Related ) {
 
 var M = {};
@@ -23,6 +25,7 @@ M.collections = d3.map();
 var modelBases = {
 	'works':WorkBase,
 	'topics':TopicBase,
+	'locations':LocationBase,
 	'faculty':FacultyBase
 };
 

@@ -1,13 +1,106 @@
 <!--location-->
-<div class="item-title">
-{{name}}
+<div class="title_row">
+  <span class="item_title location_name">
+    {{name}}
+  </span> 
+
+  <span class="prime_relations">
+
+    {{#if works}}
+    <span class="prime_relation works">
+      <span class="count">
+        {{works.length}}
+      </span>
+      <span class="relation_text">
+        projects
+      </span>
+    </span>
+    {{/if }}
+
+    {{#if related_faculty}}
+    <span class="prime_relation related_faculty">
+      <span class="relation_text">
+        by
+      </span>
+      <span class="count">
+        {{related_faculty.length}}
+      </span>
+      <span class="relation_text">
+        faculty
+      </span>
+    </span>
+    {{/if }}
+
+  </span>
 </div>
-{{#if works}}
-<ul class="relations">
-{{#each works}}
-  <li class="relation">
-  {{attributes.title}}
-  </li>
-{{/each}}
-</ul>
-{{/if}}
+
+<div class="details">
+  <ul class="relations">
+
+    {{#if works}}
+    <li class="relation">
+      <span class="relation_label"> Related Works:</span>
+
+      <ul class="works">
+        {{#each works}}
+        <li class="related_item work">
+          <span class="work_title"> {{attributes.title}} </span>
+          (<span class="work_authors">
+            {{#each attributes.authors}}
+            <span class="work_author">{{attributes.full_name}}</span>
+            {{/each}}
+          </span>)
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/if}}
+
+    {{#if related_faculty}}
+    <li class="relation">
+      <span class="relation_label"> Related Faculty:</span>
+      <ul class="related_faculty">
+        {{#each related_faculty}}
+        <li class="related_item faculty">
+          <span class="faculty_name"> {{related_item.attributes.full_name}} </span>
+          (<span class="count">{{bridges.length}}</span> projects)
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/if}}
+
+    {{#if related_topics}}
+    <li class="relation">
+      <span class="relation_label"> Related Topics:</span>
+
+      <ul class="related_topics">
+        {{#each related_topics}}
+        <li class="related_item topic">
+          <span class="topic_name"> {{related_item.attributes.name}} </span>
+          (<span class="count">{{bridges.length}}</span> projects)
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/if}}
+
+    {{#if related_locations}}
+    <li class="relation">
+      <span class="relation_label"> other locations related to the same projects</span>
+
+      <ul class="related_locations">
+        {{#each related_locations}}
+        <li class="related_item location">
+          <span class="location_name"> {{related_item.attributes.name}} </span>
+          (<span class="count">{{bridges.length}}</span> projects)
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/if}}
+
+
+  </ul>
+
+</div>
