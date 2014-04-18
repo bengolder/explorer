@@ -4,6 +4,9 @@ run:
 serve:
 	grunt --gruntfile ./front/GruntFile.js server
 
+runscript: 
+	 python ./explorer/manage.py runscript $(script)
+
 dropdb:
 	dropdb 'explorer'
 
@@ -32,6 +35,7 @@ getdata:
 
 ### RESETTING THE DATABASE
 # make desouth
+# make newdb
 # make sync
 # make schemainit
 # make fakemigrate

@@ -28,6 +28,14 @@ class Semester(models.Model):
         unique_together = ('season', 'year',)
     def __unicode__(self):
         return "%s %s" % (self.year, self.get_season_display())
+    def termParameter(self):
+        """this is used for passing arguments to
+        http://coursews.mit.edu/coursews
+        example:
+            2014 Spring --> 2014SP
+        """
+        return str(self.year) + self.season.upper()
+
 
 class Subject(PolymorphicModel, Titled, CanBeDescribed):
     """An ongoing subject at MIT
