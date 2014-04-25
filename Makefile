@@ -10,8 +10,11 @@ runscript:
 dropdb:
 	dropdb 'explorer'
 
+dump_tables:
+	bash ./explorer/scripts/export_tables.sh
+
 newdb:
-	createdb --owner bgolder --template template_postgis explorer
+	createdb --owner postgres --template template_postgis explorer
 
 schema-chart:
 	python ./explorer/manage.py graph_models mit -o dusp_explorer_db_schema.png
