@@ -3,51 +3,23 @@
   <span class="item_title topic_name">
     {{name}}
   </span>
-  <span class="prime_relations">
-
-    {{#if works}}
-    <span class="prime_relation works">
-      <span class="count">
-        {{works.length}}
-      </span>
-      <span class="relation_text">
-        related projects
-      </span>
-    </span>
-    {{/if }}
-
-    {{#if related_faculty}}
-    <span class="prime_relation related_faculty">
-      <span class="relation_text">
-        by
-      </span>
-      <span class="count">
-        {{related_faculty.length}}
-      </span>
-      <span class="relation_text">
-        faculty
-      </span>
-    </span>
-    {{/if }}
-
-    {{#if related_locations}}
-    <span class="prime_relation related_locations">
-      <span class="related_locations">
-        in
-      </span>
-      <span class="count">
-        {{related_locations.length}}
-      </span>
-      <span class="relation_text">
-        locations
-      </span>
-    </span>
-    {{/if }}
-
-  </span>
 </div>
 <div class="details">
   <ul class="relations">
+
+    {{#if faculty}}
+    <li class="relation">
+      <span class="relation_label"> Related Faculty:</span>
+
+      <ul class="related_faculty">
+        {{#each faculty}}
+        <li class="related_item faculty">
+          <span class="faculty_name"> {{attributes.full_name}} </span>
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/if}}
 
     {{#if works}}
     <li class="relation">
@@ -68,20 +40,6 @@
     </li>
     {{/if}}
 
-    {{#if related_faculty}}
-    <li class="relation">
-      <span class="relation_label"> Related Faculty:</span>
-
-      <ul class="related_faculty">
-        {{#each related_faculty}}
-        <li class="related_item faculty">
-          <span class="faculty_name"> {{related_item.attributes.full_name}} </span>
-          (<span class="count">{{bridges.length}}</span> projects)
-        </li>
-        {{/each}}
-      </ul>
-    </li>
-    {{/if}}
 
     {{#if related_locations}}
     <li class="relation">
@@ -91,7 +49,6 @@
         {{#each related_locations}}
         <li class="related_item location">
           <span class="location_name"> {{related_item.attributes.name}} </span>
-          (<span class="count">{{bridges.length}}</span> projects)
         </li>
         {{/each}}
       </ul>
@@ -105,7 +62,6 @@
         {{#each related_topics}}
         <li class="related_item topic">
           <span class="topic_name"> {{related_item.attributes.name}} </span>
-          (<span class="count">{{bridges.length}}</span> projects)
         </li>
         {{/each}}
       </ul>

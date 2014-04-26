@@ -3,48 +3,6 @@
   <span class="item_title faculty_name">
     {{full_name}}
   </span> 
-  <span class="prime_relations">
-
-    {{#if works}}
-    <span class="prime_relation works">
-      <span class="count">
-        {{works.length}}
-      </span>
-      <span class="relation_text">
-        works
-      </span>
-    </span>
-    {{/if }}
-
-    {{#if collaborators}}
-    <span class="prime_relation collaborators">
-      <span class="relation_text">
-        with
-      </span>
-      <span class="count">
-        {{collaborators.length}}
-      </span>
-      <span class="relation_text">
-        collaborators
-      </span>
-    </span>
-    {{/if }}
-
-    {{#if related_locations}}
-    <span class="prime_relation related_locations">
-      <span class="relation_text">
-        in
-      </span>
-      <span class="count">
-        {{related_locations.length}}
-      </span>
-      <span class="relation_text">
-        locations
-      </span>
-    </span>
-    {{/if }}
-
-  </span>
 
 </div>
 
@@ -73,6 +31,19 @@
   
   <ul class="relations">
 
+    {{#if current_interests}}
+    <li class="relation">
+      <span class="relation_label">Research Topics:</span>
+      <ul class="work_interests">
+        {{#each current_interests}}
+        <li class="related_item topic">
+          <span class="topic_name"> {{attributes.name}} </span>
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/if}}
+
     {{#if works}}
     <li class="relation">
       <span class="relation_label">Projects:</span>
@@ -94,7 +65,6 @@
         {{#each collaborators}}
         <li class="related_item faculty">
           <span class="faculty_name"> {{related_item.attributes.full_name}} </span>
-          (<span class="count">{{bridges.length}}</span> projects)
         </li>
         {{/each}}
       </ul>
@@ -109,22 +79,27 @@
         {{#each related_locations}}
         <li class="related_item location">
           <span class="location_name"> {{related_item.attributes.name}} </span>
-          (<span class="count">{{bridges.length}}</span> projects)
         </li>
         {{/each}}
       </ul>
     </li>
     {{/if}}
 
-    {{#if work_interests}}
+    {{#if same_interests}}
     <li class="relation">
-      <span class="relation_label">Research Topics:</span>
-      <ul class="work_interests">
-        {{#each work_interests}}
+      <span class="relation_label">Faculty Focused on similar topics</span>
+      <ul class="same_interests">
+        {{#each current_interests}}
+        {{#if attributes.faculty }}
         <li class="related_item topic">
-          <span class="topic_name"> {{related_item.attributes.name}} </span>
-          (<span class="count">{{bridges.length}}</span> projects)
+        {{attributes.name}}
+        <ul class="topic faculty">
+          {{#each attributes.faculty}}
+          <li class="related_item faculty">{{attributes.full_name}}</li>
+          {{/each}}
+        </ul>
         </li>
+        {{/if}}
         {{/each}}
       </ul>
     </li>

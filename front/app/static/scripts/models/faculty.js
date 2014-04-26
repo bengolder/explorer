@@ -11,6 +11,7 @@ spans: {
 	'bridge_attribute': 'works',
 	'other_attribute': 'authors',
 	},
+
 'same_interests':{
 	'bridge_attribute': 'current_interests',
 	'other_attribute': 'faculty',

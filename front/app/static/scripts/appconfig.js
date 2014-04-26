@@ -68,17 +68,6 @@ config.collections = [
 	  // span: works with shared location
 	},
 
-	{ 'collectionName': 'labs',
-	  'display': 'title',
-	  'menuName': 'labs',
-	  'niceTypeName': 'lab',
-	  'parentCollection':'works',
-	  'ctypeNames': ['researchinitiative'],
-	  'relations': [
-		  ['labs', 'subprojects', 'responsible for', 'works', 'originating from', 'labs'],
-		  ],
-	},
-
 	{ 'collectionName': 'publications',
 	  'display': 'title',
 	  'menuName': 'publications',
