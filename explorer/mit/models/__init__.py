@@ -10,14 +10,18 @@ from .people import (
         Faculty,
         )
 from .works import (
+        WorkType,
+        GenericWork,
         Work,
         Project,
         ResearchInitiative,
         )
 from .publications import (
+        PublicationInfo,
         PublicationFormat,
         Publisher,
         Publication,
+        Periodical,
         Book,
         Article,
         JournalArticle,
@@ -30,6 +34,7 @@ from .courses import (
         Semester,
         Subject,
         Course,
+        CourseInfo,
         )
 from .institutions import (
         Department,
@@ -47,11 +52,14 @@ __all__ = [
         'Department',
         'Person',
         'Faculty',
+        'WorkType',
+        'GenericWork',
         'Work',
         'Project',
         'ResearchInitiative',
         'Colloquium',
         'Publisher',
+        'PublicationInfo',
         'Publication',
         'Book',
         'Article',
@@ -61,4 +69,5 @@ __all__ = [
         'Semester',
         'Subject',
         'Course',
+        'CourseInfo',
         ]

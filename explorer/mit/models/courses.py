@@ -70,3 +70,15 @@ class Course(PolymorphicModel, CanBeDescribed, CanHaveWebsite):
         semesters = ", ".join([str(s) for s in self.semesters.all()])
         return semesters + ": " + names
 
+class CourseInfo(models.Model):
+    work_item = models.OneToOneField('GenericWork')
+    course_codes = models.CharField(max_length=50)
+    is_workshop = models.BooleanField(default=False)
+    is_practicum = models.BooleanField(default=False)
+    is_studio = models.BooleanField(default=False)
+    semesters = models.ManyToManyField('Semester')
+    class Meta:
+        app_label = "mit"
+    def __unicode__(self):
+        return self.course_codes
+

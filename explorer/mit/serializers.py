@@ -1,14 +1,19 @@
+from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from django.contrib.contenttypes.models import ContentType
 
 from mit.models import (
         Faculty,
+        WorkType,
         Work,
+        GenericWork,
         Project,
         ResearchInitiative,
         Publisher,
         Publication,
+        PublicationInfo,
+        CourseInfo,
         Book,
         Article,
         JournalArticle,
@@ -88,7 +93,54 @@ class WorkSerializer(ModelSerializer):
         else:
             return super(WorkSerializer, self).to_native(obj)
 
+class WorkTypeSerializer(ModelSerializer):
+    class Meta:
+        model = WorkType
 
+class CourseInfoSerizalizer(ModelSerializer):
+    semesters = serializers.RelatedField(many=True)
+    class Meta:
+        model = CourseInfo
+    fields = (
+            'course_codes',
+            'is_studio',
+            'is_workshop',
+            'is_practicum',
+            'semesters',
+        )
+
+class PublicationInfoSerizalizer(ModelSerializer):
+    medium = serializers.RelatedField()
+    publishers = serializers.RelatedField(many=True)
+    periodicals = serializers.RelatedField(many=True)
+    class Meta:
+        model = PublicationInfo
+        fields = (
+            'date_published',
+            'publishers',
+            'periodicals',
+            'medium',
+                )
+
+class GenericWorkSerializer(ModelSerializer):
+    publicationinfo = PublicationInfoSerizalizer()
+    courseinfo = CourseInfoSerizalizer()
+    class Meta:
+        model = GenericWork
+        fields = (
+                'work_types',
+                'title',
+                'faculty',
+                'website',
+                'topics',
+                'locations',
+                'non_dusp_collaborators',
+                'start_date',
+                'end_date',
+                'subworks',
+                'publicationinfo',
+                'courseinfo',
+            )
 
 
 

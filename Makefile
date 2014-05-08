@@ -65,6 +65,12 @@ schema:
 migrate:
 	python ./explorer/manage.py migrate mit
 
+switchworkmodels:
+	make runscript script=migrate_models
+
+deleteworks:
+	make runscript script=delete_old_models
+
 fakemigrate:
 	python ./explorer/manage.py migrate mit 0001 --fake
 

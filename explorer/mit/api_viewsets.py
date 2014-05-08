@@ -9,6 +9,8 @@ from mit.models import (
         Location,
         ResearchInitiative,
         Topic,
+        GenericWork,
+        WorkType,
         )
 
 from mit.serializers import (
@@ -18,6 +20,8 @@ from mit.serializers import (
         FacultySerializer,
         WorkSerializer,
         ResearchInitiativeSerializer,
+        GenericWorkSerializer,
+        WorkTypeSerializer,
         )
 
 class TopicViewSet(viewsets.ModelViewSet):
@@ -49,5 +53,16 @@ class ContentTypeViewSet(viewsets.ModelViewSet):
     queryset = ContentType.objects.filter(app_label='mit')
     serializer_class = ContentTypeSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+class WorkTypeViewSet(viewsets.ModelViewSet):
+    queryset = WorkType.objects.all()
+    serializer_class = WorkTypeSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+class GenericWorkViewSet(viewsets.ModelViewSet):
+    queryset = GenericWork.objects.all()
+    serializer_class = GenericWorkSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
 
 

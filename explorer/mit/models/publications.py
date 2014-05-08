@@ -1,6 +1,6 @@
 from django.db import models
 from .mixins import Named, CanHaveWebsite, CanBeDescribed
-from .works import Work
+from .works import Work, GenericWork
 
 # medium choices are based on MLA format list:
 # http://libguides.csuchico.edu/content.php?pid=72716&sid=538460
@@ -10,14 +10,17 @@ class PublicationFormat(Named, CanBeDescribed):
             blank=True)
     class Meta:
         app_label = "mit"
+    def __unicode__(self):
+        return self.name
 
 class Publisher(Named, CanHaveWebsite, CanBeDescribed):
     """An entity that publishes work. Can be a blog, book publisher, or
     institution.
     """
-    pass
     class Meta:
         app_label = "mit"
+    def __unicode__(self):
+        return self.name
 
 class Publication(Work):
     """A generic published work by faculty.
@@ -27,6 +30,27 @@ class Publication(Work):
     medium = models.ForeignKey('PublicationFormat', null=True, blank=True)
     class Meta:
         app_label = "mit"
+
+class Periodical(Named, CanHaveWebsite, CanBeDescribed):
+    """A regularly published academic journal, magazine, or newspaper
+    """
+    class Meta:
+        app_label = "mit"
+    def __unicode__(self):
+        return self.name
+
+class PublicationInfo(models.Model):
+    """A generic published work by faculty.
+    """
+    work_item = models.OneToOneField('GenericWork')
+    date_published = models.DateField()
+    publishers = models.ManyToManyField('Publisher', null=True, blank=True)
+    periodicals = models.ManyToManyField('Periodical', null=True, blank=True)
+    medium = models.ForeignKey('PublicationFormat', null=True, blank=True)
+    class Meta:
+        app_label = "mit"
+    def __unicode__(self):
+        return "Publication Information"
 
 class Book(Publication):
     """A book by faculty

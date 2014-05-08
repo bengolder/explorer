@@ -10,7 +10,12 @@ from mit.models import (
         Department,
         Person,
         Faculty,
+        GenericWork,
+        Periodical,
+        PublicationInfo,
+        CourseInfo,
         Work,
+        WorkType,
         Project,
         ResearchInitiative,
         Colloquium,
@@ -99,6 +104,59 @@ class FacultyAdmin(admin.ModelAdmin):
     ordering = ('full_name',)
     form = FacultyAdminForm
 
+class WorkTypeAdmin(admin.ModelAdmin):
+    ordering = ('name',)
+    fields = (
+            ('name', 'subtypes'),
+            )
+
+class PublicationInfoInline(admin.StackedInline):
+    verbose_name = "Publication Info"
+    verbose_name_plural = "Publication Info"
+    model = PublicationInfo
+    fields = (
+            ('medium', 'publishers', 'periodicals'),
+            ('date_published',),
+            )
+
+
+class CourseInfoInline(admin.StackedInline):
+    verbose_name = "Course Info"
+    verbose_name_plural = "Course Info"
+    model = CourseInfo
+    fields = (
+            ('course_codes', 'semesters'),
+            ('is_workshop', 'is_practicum', 'is_studio'),
+            )
+
+class GenericWorkAdmin(admin.ModelAdmin):
+    fieldsets = (
+            (None, {'fields': [
+                'title',
+                ('work_types', 'faculty'),
+                ('topics', 'locations')
+                ],}),
+            ('Collaborators & Partners', {
+                'fields': [('non_dusp_collaborators', 'partners')],
+                'classes': ('grp-collapse grp-closed',),
+                }),
+            ('Dates', {
+                'fields': [('start_date', 'end_date')],
+                'classes': ('grp-collapse grp-closed',),
+                }),
+            ('Sub Items', {
+                'fields': ['subworks',],
+                'classes': ('grp-collapse grp-closed',),
+                }),
+        )
+    ordering = ('title',)
+    inlines = [
+            PublicationInfoInline,
+            CourseInfoInline
+            ]
+
+
+
 
 class TopicAdmin(admin.ModelAdmin):
     fields = (('name', 'description'), 'parent_topics')
@@ -175,6 +233,8 @@ class WorkParentAdmin(PolymorphicParentModelAdmin):
             (JournalArticle, JournalArticleAdmin),
     )
 
+
+
 admin.site.register(Department)
 admin.site.register(PublicationFormat, PublicationFormatAdmin)
 admin.site.register(Faculty, FacultyAdmin)
@@ -184,4 +244,6 @@ admin.site.register(Topic, TopicAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Semester, SemesterAdmin)
 admin.site.register(Subject, SubjectAdmin)
+admin.site.register(WorkType, WorkTypeAdmin)
+admin.site.register(GenericWork, GenericWorkAdmin)
 
