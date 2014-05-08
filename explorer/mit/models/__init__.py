@@ -12,19 +12,12 @@ from .people import (
 from .works import (
         WorkType,
         GenericWork,
-        Work,
-        Project,
-        ResearchInitiative,
         )
 from .publications import (
         PublicationInfo,
         PublicationFormat,
         Publisher,
-        Publication,
         Periodical,
-        Book,
-        Article,
-        JournalArticle,
         )
 from .tags import (
         Topic,
@@ -32,15 +25,10 @@ from .tags import (
         )
 from .courses import (
         Semester,
-        Subject,
-        Course,
         CourseInfo,
         )
 from .institutions import (
         Department,
-        )
-from .colloquia import (
-        Colloquium,
         )
 
 __all__ = [
@@ -54,20 +42,10 @@ __all__ = [
         'Faculty',
         'WorkType',
         'GenericWork',
-        'Work',
-        'Project',
-        'ResearchInitiative',
-        'Colloquium',
         'Publisher',
         'PublicationInfo',
-        'Publication',
-        'Book',
-        'Article',
-        'JournalArticle',
         'Topic',
         'Location',
         'Semester',
-        'Subject',
-        'Course',
         'CourseInfo',
         ]

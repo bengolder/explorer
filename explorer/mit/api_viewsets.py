@@ -5,9 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 
 from mit.models import (
         Faculty,
-        Work,
         Location,
-        ResearchInitiative,
         Topic,
         GenericWork,
         WorkType,
@@ -18,8 +16,6 @@ from mit.serializers import (
         TopicSerializer,
         LocationSerializer,
         FacultySerializer,
-        WorkSerializer,
-        ResearchInitiativeSerializer,
         GenericWorkSerializer,
         WorkTypeSerializer,
         )
@@ -37,16 +33,6 @@ class LocationViewSet(viewsets.ModelViewSet):
 class FacultyViewSet(viewsets.ModelViewSet):
     queryset = Faculty.objects.all()
     serializer_class = FacultySerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-class WorkViewSet(viewsets.ModelViewSet):
-    queryset = Work.objects.all()
-    serializer_class = WorkSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-class ResearchInitiativeViewSet(viewsets.ModelViewSet):
-    queryset = ResearchInitiative.objects.all()
-    serializer_class = ResearchInitiativeSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 class ContentTypeViewSet(viewsets.ModelViewSet):
