@@ -41,8 +41,13 @@ header {
     padding-top: @vu * 20;
 }
 
+html, body, #main, #chart {
+    height: 100%;
+}
 
+@import 'typography.less';
 @import 'topic_list.less';
+@import 'network.less';
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {

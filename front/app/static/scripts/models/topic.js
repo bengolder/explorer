@@ -1,28 +1,20 @@
 define([
-], function () {
-var TopicBase = {
-// Available from inheritance:
-	// collection
-	// displayKey
+'jquery',
+'underscore',
+'backbone',
+'models/base_model'
+], function ($, _, BB, BaseModel) {
+var Topic = BaseModel.extend({
 
-// topics with similar works
-spans: {
-	'related_topics': {
-		'bridge_attribute': 'works',
-		'other_attribute': 'topics',
-	},
-	'related_faculty': {
-		'bridge_attribute': 'works',
-		'other_attribute': 'authors',
-	},
-	'related_locations': {
-		'bridge_attribute': 'works',
-		'other_attribute': 'locations',
-	},
+initialize: function(){
+	BaseModel.prototype.initialize.apply(this, arguments);
 },
 
-};
-return TopicBase;
+// idAttribute:,
+// defaults:{},
+// initialize:function(attributes, options){},
+// validate:function(attributes, options){},
+
 });
-
-
+return Topic;
+});

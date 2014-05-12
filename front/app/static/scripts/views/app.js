@@ -18,7 +18,7 @@ var AppView = BB.View.extend({
 	},
 
 
-	initialize: function () {
+    initialize: function () {
 	    // bind events, 
 		// render self, 
 		// then initialize children

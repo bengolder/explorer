@@ -20,6 +20,11 @@ define([
 
 var MenuView = BB.View.extend({
 
+// A MenuView represents a single dropdown menu
+// It acts as a node in a linked list, and is 
+// aware of any menus to its right
+// or left
+
 className: 'btn-group',
 
 initialize: function (options, left, right) {
@@ -36,6 +41,7 @@ initialize: function (options, left, right) {
 },
 
 buildMenu: function(){
+	// this builds the individual items in the menu
 	var menuItems = this.options.menuItems;
 	var me = this;
 	menuItems.forEach(function(item){
@@ -46,17 +52,23 @@ buildMenu: function(){
 addMenuItem: function(item){
 	var me = this;
 	if(item.isGroup) {
+		// if the item is in a group
+		// append the group template
 		this.dropdown.append(
 			groupTemplate(item)
 		);
+		// and then add the individual items in the group
 		item.groupItems.forEach(function(item){
 			me.addMenuItem(item);
 		});
 	} else {
+		// initialize a new menu item view
 		var menuItem = new MenuItemView(item, this);
 		this.map.set(item.menuName, menuItem);
 		this.dropdown.append(menuItem.$el);
 		if( item == this.choice ) {
+			// if this item is chosen, make 
+			// sure it has the 'chosen' css class
 			menuItem.$el.addClass("chosen");
 		}
 	}
@@ -64,10 +76,7 @@ addMenuItem: function(item){
 
 chooseItem: function(menuName){
 	var menuItem = this.map.get(menuName);
-	Events.trigger("menuItemChosen", menuItem, this);
-	if( _.has(this, 'choiceHandler') ) {
-		this.choiceHandler(menuItem.item);
-	}
+	Events.trigger("menuItemChosen", menuItem.item, this);
 	// replace the current choice with this one
 	var currentChoice = this.map.get(this.choice.menuName);
 	currentChoice.$el.removeClass("chosen");

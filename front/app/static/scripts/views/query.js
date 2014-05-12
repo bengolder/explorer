@@ -1,12 +1,14 @@
 define([
 'jquery', 'backbone',
 'views/menu',
-'views/list',
+'views/network',
+'views/globe',
 'event_manager',
 'data_manager',
 ], function($, BB, 
 	MenuView, 
-	List,
+	NetworkView,
+	GlobeView,
 	Events, 
 	Data
 ) {
@@ -21,37 +23,74 @@ initialize: function () {
 	Events.on('relationsBuilt', function(){
 		me.createDefaultMenus();
 	});
-	Events.on('foreignKeysReplaced', function(colls){
-		console.log("topics with keys", colls.get('topics'));
+	Events.on('menuItemChosen', function(item, menu){
+		me.handleMenuChoice(item, menu);
 	});
 	this.chart = null;
 	this.menus = [];
 	this.render();
 },
 
+randomChoice: function(arr){
+	return arr[Math.floor(Math.random()*arr.length)];
+},
+
+handleMenuChoice: function(item, menu){
+	if ( menu === this.menus[0]){
+		console.log("a new collectoin was chosen", item.menuName);
+		this.handleSelectedCollection(item);
+	} else if ( menu === this.menus[1] ){
+		console.log("a collection option was chosen", item);
+	}
+},
+
 createDefaultMenus:function(){
 	console.log("creating default menus");
-	var items = Data.collections.keys();
-	var defaultChoiceKey = items[Math.floor(Math.random()*items.length)];
-	var choice = Data.collections.get(defaultChoiceKey);
+	// choose one collection randomly
+	var keys = ['topics', 'locations', 'facultys', 'works'];
+	var randomChoiceKey  = this.randomChoice(keys);
+	var randomChoice = Data.collections.get(randomChoiceKey);
+	// get the default collections
+	var choices = keys.map(function(key){ return Data.collections.get(key); });
+	// add a menu with the item chosen, the possible itemsm and a handler for
+	// the choice
 	this.addMenu({
-		choice: choice,
-		menuItems: Data.collections.values(),
-		choiceHandler: this.collectionSelected,
-	}).chooseItem(defaultChoiceKey);
+		choice: randomChoice,
+		menuItems: choices,
+	}).chooseItem(randomChoice.menuName);
 },
 
-collectionSelected: function(coll){
-	// make new list view
+handleSelectedCollection: function(coll){
+	// remove any existing chart
+	console.log("handling choice", coll);
 	if( this.chart ){
 		this.chart.$el.remove();
+		console.log("removedChart");
 	}
-	var listView = new List(coll);
-	$("#chart").append(listView.$el);
-	this.chart = listView;
+	if( coll.viewOptions ){
+		// if this collection has multiple view options
+		// then select one at random and add a menu of the different options
+		var randomChoice = this.randomChoice(coll.viewOptions);
+		this.addMenu({
+			choice: randomChoice,
+			menuItems: coll.viewOptions,
+		}).chooseItem(randomChoice);
+		// currently there is no handler for view options
+	} else {
+		if( coll.key == 'locations' ){
+			console.log("rendering globe view with", coll.globeData());
+			this.renderGlobeView(coll.globeData());
+		} else {
+			console.log("rendering network view with", coll.graphData());
+			this.renderNetworkView(coll.graphData());
+		}
+	}
 },
 
+
 addMenu: function (options) {
+	// append a new menu
+	// ensure that the menus are aware of each other
 	var rightMostMenu = this.menus[this.menus.length - 1];
 	var newMenu = new MenuView(options, rightMostMenu);
 	if( rightMostMenu !== undefined ) {
@@ -63,6 +102,17 @@ addMenu: function (options) {
 },
 
 removeMenu: function (slot) {
+},
+
+renderGlobeView: function(data){
+},
+
+renderNetworkView: function(data){
+	var view = new NetworkView(data);
+	this.chart = view;
+	$("#chart").append(view.$el);
+	console.log("appended", view);
+	view.network();
 },
 
 

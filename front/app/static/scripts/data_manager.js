@@ -4,29 +4,42 @@ define([
   'backbone',
   'appconfig',
   'event_manager',
-  'models/base_model',
-  'models/topic',
-  'models/faculty',
-  'models/work',
-  'models/location',
-  'collections/related',
+  'collections/work_types',
+  'collections/works',
+  'collections/facultys',
+  'collections/topics',
+  'collections/locations'
 ], function( d3, _, BB,
 	config, Events, 
-	BaseModelOpts,
-	TopicBase,
-	FacultyBase,
-	WorkBase,
-	LocationBase,
-	Related ) {
+	WorkTypes,
+	Works,
+	Facultys,
+	Topics,
+	Locations
+) {
 
 var M = {};
+
+// These are all the collection types
+// each will be fetched, stored under it's key
+// and then relations will be built
+M.bases = [
+	WorkTypes, Works, Facultys, Topics, Locations
+];
+
+// This will store the instantiated collection objects
+// each object is stored under a key
+// keys are: worktypes, works, facultys, topics, locations
 M.collections = d3.map();
 
-var modelBases = {
-	'works':WorkBase,
-	'topics':TopicBase,
-	'locations':LocationBase,
-	'faculty':FacultyBase
+M.initializeCollections = function initializeCollections() {
+	// create each collection and store it under its key
+	M.bases.forEach(function (Coll, i) {
+		var coll = new Coll();
+		M.collections.set( coll.key, coll );
+	});
+	// after all the collections are initialized, fetch their data
+	M.fetchCollections();
 };
 
 function fetchCollection( key, coll ) {
@@ -38,113 +51,10 @@ function fetchCollection( key, coll ) {
 	});
 }
 
-M.fetchBaseCollections = function(){
+M.fetchCollections = function(){
 		M.collectionQueue = d3.set(M.collections.keys());
 		M.collections.forEach( fetchCollection );
 };
-
-
-function instaCollection( options ){
-	var C = BB.Collection.extend(options);
-	return C;
-}
-
-function relatedCollection(options){
-	options = options || {};
-	var C = instaCollection( _.extend(Related, options) );
-	return C;
-}
-
-M.loadDefinitions = function(){
-	var CTypes = instaCollection({
-		url: config.api('models/')
-	});
-	M.ctypes = new CTypes();
-	M.ctypes.fetch({
-		'success':function(){
-			Events.trigger('ctypesLoaded');
-		}
-	});
-};
-
-M.setCTypeLink = function(coll){
-	coll.ctypes.forEach(function(key){
-		M.ctypes.get(key).set('collection', coll);
-	});
-};
-
-M.defineModel = function(conf){
-	var M;
-	var base_opts = _.clone(BaseModelOpts);
-	if( _.has(modelBases, conf.collectionName)){
-		var model_opts = modelBases[conf.collectionName];
-		_.extend(base_opts, modelBases[conf.collectionName]);
-	}
-	M = BB.Model.extend(
-		_.extend(base_opts, {
-			displayKey: conf.display,
-	}));
-	return M;
-};
-
-M.defineCollection = function(conf){
-	// add ctypes keys attribute
-	conf.ctypes = _.map(conf.ctypeNames, 
-		function(ctypeName){
-			var ctype = M.ctypes.findWhere({'model': ctypeName});
-			return ctype.id;
-	});
-	conf.model = M.defineModel(conf);
-	var Collection, coll;
-	if( !_.has(conf, 'parentCollection') ){
-		// make a new class
-		Collection = relatedCollection();
-		_.extend(conf, {'config':conf});
-		coll = new Collection(conf);
-	} else {
-		// filter an existing class to make a new collection
-		// this assumes that the parent already exists and has been 
-		// fetched
-		var parentColl = M.collections.get(conf.parentCollection);
-		var parentConf = parentColl.config;
-		conf.relations = [].concat.apply([], _.filter(
-				[parentConf.relations, conf.relations], function(r){
-					return r !== undefined;
-				}))
-		conf = _.extend(parentConf, conf);
-		conf = _.extend(conf, {'config':conf});
-		Collection = relatedCollection(conf);
-		var models = parentColl.filter(function(m){
-				return _.contains(conf.ctypes, m.get('polymorphic_ctype')); 
-			});
-		conf.models = models;
-		coll = new Collection( models);
-		// override parent settings with child
-	}
-	coll.sourceClass = Collection;
-	M.collections.set(conf.collectionName, coll);
-	M.setCTypeLink(coll);
-};
-
-
-M.defineBaseCollections = function(){
-	config.collections.forEach(function(collConfig){
-		if( !_.has( collConfig, 'parentCollection' ) ){
-			M.defineCollection(collConfig);
-		}
-	});
-	Events.trigger('baseCollectionsDefined');
-};
-M.defineChildCollections = function(){
-	config.collections.forEach(function(collConfig){
-		if( _.has( collConfig, 'parentCollection' ) ){
-			M.defineCollection(collConfig);
-		}
-	});
-	Events.trigger('allCollectionsDefined');
-};
-
-
 
 M.buildRelationGraph = function(){
 	// these might be processor intensive, and it might therefore be worth it
@@ -162,39 +72,24 @@ M.replaceForeignKeys = function(colls){
 	Events.trigger('foreignKeysReplaced', colls);
 };
 
-Events.on('ctypesLoaded', function(){
-	M.defineBaseCollections();
-});
-
-Events.on('baseCollectionsDefined', function(){
-	M.fetchBaseCollections();
-});
-
-Events.on('baseCollectionsFetched', function(){
-	M.defineChildCollections();
-});
-Events.on('allCollectionsDefined', function(){
-	M.buildRelationGraph();
-});
-
-
 Events.on('relationsBuilt', function(colls){
 	M.replaceForeignKeys(colls);
+});
+
+Events.on('collectionsFetched', function(){
+	M.buildRelationGraph();
 });
 
 Events.on('collectionFetched', function(key){
 	// model defs is not in the collectionQueue
 	// so ignore it
-	if( key == 'model_defs' ) {
-		return;
-	}
 	M.collectionQueue.remove(key);
 	if( M.collectionQueue.empty() ) {
-		Events.trigger('baseCollectionsFetched', M.collections);
+		Events.trigger('collectionsFetched', M.collections);
 	}
 });
 
-M.loadDefinitions();
+M.initializeCollections();
 
 return M;
 

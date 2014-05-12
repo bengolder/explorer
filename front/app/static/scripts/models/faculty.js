@@ -1,36 +1,22 @@
 define([
-], function () {
-var FacultyBase = {
-// Available from inheritance:
-	// collection
-	// displayKey
+'jquery',
+'underscore',
+'backbone',
+'models/base_model'
+], function ($, _, BB, BaseModel) {
+var Faculty	= BaseModel.extend({
 
-// topics with similar works
-spans: {
-'collaborators': {
-	'bridge_attribute': 'works',
-	'other_attribute': 'authors',
-	},
-
-'same_interests':{
-	'bridge_attribute': 'current_interests',
-	'other_attribute': 'faculty',
+initialize: function(){
+	BaseModel.prototype.initialize.apply(this, arguments);
 },
 
-'related_locations':{
-	'bridge_attribute': 'works',
-	'other_attribute': 'locations',
-},
 
-'work_interests':{
-	'bridge_attribute': 'works',
-	'other_attribute': 'topics',
-}
+// idAttribute:,
+// defaults:{},
+// initialize:function(attributes, options){},
+// validate:function(attributes, options){},
 
-},
-
-};
-return FacultyBase;
 });
-
+return Faculty;
+});
 

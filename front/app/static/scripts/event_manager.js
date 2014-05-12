@@ -16,13 +16,11 @@ _.extend(E, BB.Events);
 // system that can be more easily converted to asynchronous tasks.
 
 /* SUBSCRIBEABLE EVENTS
- * ctypesLoaded
- * baseCollectionsDefined
  * collectionFetched, <collectionName>
- * baseCollectionsFetched, <collectionsSet>
- * allCollectionsDefined
+ * collectionsFetched, <collectionsSet>
  * relationsBuilt, <collectionsSet>
  * foreignKeysReplaced, <collectionsSet>
+ * menuItemChosen, <chosenItem>, <menu>
  * specificItemSelected, <item>
  *
  */

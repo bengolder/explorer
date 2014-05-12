@@ -1,9 +1,9 @@
 define([
 'underscore',
 'd3',
-'appconfig'
-], function ( _, d3 ) {
-var BaseModelOpts = {
+'backbone',
+], function ( _, d3, BB ) {
+var BaseModel = BB.Model.extend({
 
 getSpan: function(bridge_att, other_att){
 	var me = this;
@@ -72,6 +72,6 @@ serialize: function(){
 	return data;
 }
 
-};
-return BaseModelOpts;
+});
+return BaseModel;
 });

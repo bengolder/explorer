@@ -1,27 +1,19 @@
 define([
-], function () {
-var WorkBase = {
-// Available from inheritance:
-	// collection
-	// displayKey
+'jquery',
+'underscore',
+'backbone',
+'models/base_model'
+], function ($, _, BB, BaseModel) {
+var Work = BaseModel.extend({
 
-// topics with similar works
-spans: {
-'same_authors': {
-	'bridge_attribute': 'authors',
-	'other_attribute': 'works',
-	},
-'same_topics':{
-	'bridge_attribute': 'topics',
-	'other_attribute': 'works',
+initialize: function(){
+	BaseModel.prototype.initialize.apply(this, arguments);
 },
-'same_locations':{
-	'bridge_attribute': 'locations',
-	'other_attribute': 'works',
-}
-},
+// idAttribute:,
+// defaults:{},
+// initialize:function(attributes, options){},
+// validate:function(attributes, options){},
 
-};
-return WorkBase;
 });
-
+return Work;
+});
