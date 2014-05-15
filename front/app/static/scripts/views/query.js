@@ -1,13 +1,13 @@
 define([
 'jquery', 'backbone',
 'views/menu',
-'views/network',
+'views/chord',
 'views/globe',
 'event_manager',
 'data_manager',
 ], function($, BB, 
 	MenuView, 
-	NetworkView,
+	ChordView,
 	GlobeView,
 	Events, 
 	Data
@@ -57,7 +57,7 @@ createDefaultMenus:function(){
 	this.addMenu({
 		choice: randomChoice,
 		menuItems: choices,
-	}).chooseItem(randomChoice.menuName);
+	}).chooseItem(this.randomChoice(['faculty', 'topics']));
 },
 
 handleSelectedCollection: function(coll){
@@ -81,8 +81,8 @@ handleSelectedCollection: function(coll){
 			console.log("rendering globe view with", coll.globeData());
 			this.renderGlobeView(coll.globeData());
 		} else {
-			console.log("rendering network view with", coll.graphData());
-			this.renderNetworkView(coll.graphData());
+			console.log("rendering chord view with", coll.graphData());
+			this.renderChordView(coll.graphData());
 		}
 	}
 },
@@ -107,12 +107,12 @@ removeMenu: function (slot) {
 renderGlobeView: function(data){
 },
 
-renderNetworkView: function(data){
-	var view = new NetworkView(data);
+renderChordView: function(data){
+	var view = new ChordView(data);
 	this.chart = view;
 	$("#chart").append(view.$el);
 	console.log("appended", view);
-	view.network();
+	view.chord();
 },
 
 

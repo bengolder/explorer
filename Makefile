@@ -97,11 +97,8 @@ fullstatic:
 
 pre-deploy:
 	# run on local dev repo before deploying to server
-	make staticfiles
+	make fullstatic
 	git add ./explorer/static/*
-	git commit -a -m 'adding static files pre-deployment'
-	git push origin master
-	ssh explorer
 
 deploy:
 	# run on server in order to update and deploy

@@ -1,6 +1,60 @@
+@import 'bootstrap/less/variables.less';
 
 .chart { height: 100%; }
 
-.link {
-    stroke: #000;
+.chord, .arc {
+    stroke: #fff;
+    stroke-width: 0.35;
+    fill: #000;
+    fill-opacity: 0.5;
+}
+
+.chord, .group {
+    cursor: pointer;
+}
+
+.dragging {
+    .chord, .group {
+        cursor:-webkit-grabbing;
+        cursor:-moz-grabbing;
+    }
+}
+.arc {
+    fill-opacity: 0.9;
+    stroke: red;
+    stroke-width: 0.5;
+}
+
+.arcLabel {
+    font-size: 13px;
+}
+.textArc {
+    stroke: none;
+    fill: none;
+}
+
+.hoverTextBox {
+    font-size: 16px;
+}
+
+.svg-chart {
+    cursor:-webkit-grab;
+    cursor:-moz-grab;
+}
+.svg-chart.dragging {
+    cursor:-webkit-grabbing;
+    cursor:-moz-grabbing;
+}
+
+.lessened {
+    opacity: 0.2;
+}
+
+.selected {
+    fill: @blue;
+    fill-opacity: 1;
+}
+
+.related {
+    fill: desaturate(@blue, 60%);
 }

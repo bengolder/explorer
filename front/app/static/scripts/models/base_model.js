@@ -31,6 +31,21 @@ getSpan: function(bridge_att, other_att){
 	return spans;
 },
 
+
+getCommonRelations: function(other, related_att){
+	// similar to exploring spans, this finds the related objects that are
+	// shared in common between two model instances of the same type.
+	var theseRelations = this.get(related_att);
+	var otherRelations = other.get(related_att);
+	var shared = [];
+	theseRelations.forEach(function(r, i){
+		if( _.contains(otherRelations, r) ){
+			shared.push(r);
+		}
+	});
+	return shared;
+},
+
 getSpanningRelations: function(){
 	var me = this;
 	_.each(this.spans, function(span, att_name){

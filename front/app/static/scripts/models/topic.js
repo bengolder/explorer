@@ -10,6 +10,10 @@ initialize: function(){
 	BaseModel.prototype.initialize.apply(this, arguments);
 },
 
+displayText: function(){
+	return this.get('name');
+},
+
 // idAttribute:,
 // defaults:{},
 // initialize:function(attributes, options){},

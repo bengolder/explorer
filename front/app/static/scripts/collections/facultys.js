@@ -54,22 +54,32 @@ var Facultys = Related.extend({
 
 graphData: function(){
 	var data = {};
-	// we need to assemble nodes and links
-	data.nodes = this.models;
-	data.links = [];
-	this.models.forEach(function(m){
-		var spans = m.getSpan('current_interests', 'faculty');
-		spans.forEach(function(s){
-			if( s.bridges.length > 0 ){
-				var link = {};
-				link.target = s.related_item;
-				link.source = m;
-				link.bridges = s.bridges;
-				data.links.push(link);
+	// the matrix should have a row for each faculty.
+	var relationMatrix = [];
+	var sizeMatrix = [];
+	var me = this;
+	me.each(function(n, i){
+		// add a row
+		relationMatrix.push([]);
+		sizeMatrix.push([]);
+
+		me.each(function(o, j){
+			var shared;
+			// if this is an identity cell, just return an empty list
+			if( o !== n ){
+				shared = n.getCommonRelations(o, 'current_interests');
+			} else {
+				shared = [];
 			}
+			relationMatrix[i].push(shared);
+			sizeMatrix[i].push(shared.length);
 		});
+
 	});
-	return data;
+	return { nodes: me.models, relations: relationMatrix, 
+		sizes: sizeMatrix,
+		relationKey: 'current_interests'
+	};
 },
 
 });

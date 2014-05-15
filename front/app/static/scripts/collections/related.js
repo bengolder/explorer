@@ -71,7 +71,10 @@ var Related = BB.Collection.extend({
 			other.set(att, [model]);
 		} else {
 			// otherwise, just add this model to the other's array.
-			other.get(att).push(model);
+			var othersFriends = other.get(att);
+			if( !_.contains(othersFriends, model) ){
+				othersFriends.push(model);
+			}
 		}
 	},
 
