@@ -85,6 +85,10 @@ class GenericWorkAdmin(admin.ModelAdmin):
                 ('work_types', 'faculty'),
                 ('topics', 'locations')
                 ],}),
+            ('Description', {
+                'fields': ['description'],
+                'classes': ('grp-collapse grp-closed',),
+                }),
             ('Collaborators & Partners', {
                 'fields': [('non_dusp_collaborators', 'partners')],
                 'classes': ('grp-collapse grp-closed',),

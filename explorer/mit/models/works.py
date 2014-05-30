@@ -11,7 +11,8 @@ class WorkType(Named):
 
 class GenericWork(Titled, CanBeDescribed, CanHaveWebsite):
     faculty = models.ManyToManyField('Faculty')
-    non_dusp_collaborators = models.CharField(max_length=500)
+    non_dusp_collaborators = models.CharField(max_length=500, null=True,
+            blank=True)
     work_types = models.ManyToManyField('WorkType')
     topics = models.ManyToManyField('Topic', null=True, blank=True)
     locations = models.ManyToManyField('Location', null=True, blank=True)

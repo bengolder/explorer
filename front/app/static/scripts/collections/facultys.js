@@ -20,6 +20,8 @@ var Facultys = Related.extend({
 
 	defineRelations: function(){
 		// args: ( att_name, targetCollection[, reverse_att_name] )
+		// can these be created using models on the backend?
+		// What would be needed?
 		this.defineRelation( 'current_interests', 'topics', 'faculty' );
 	},
 

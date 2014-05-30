@@ -1,16 +1,29 @@
 {
-  "name": "front",
+  "name": "explorer",
   "version": "0.0.0",
   "dependencies": {
-    "d3": "~3.4.6",
-    "bootstrap": "~3.1.1",
-    "jquery": "~1.10.2",
-    "requirejs": "~2.1.9",
-    "requirejs-text": "~2.0.10",
-    "underscore": "~1.5.2",
-    "backbone": "~1.1.0",
-    "modernizr": "~2.6.2",
-    "require-handlebars-plugin": "~0.8.0"
+    "grunt-cli": "~0.1.13",
+    "grunt": "~0.4.5"
   },
-  "devDependencies": {}
+  "homepage": "https://github.com/bengolder/explorer",
+  "authors": [
+    "Benjamin Golder <benjamin.j.golder@gmail.com>"
+  ],
+  "keywords": [
+    "backbone",
+    "d3",
+    "require"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.5"
+  }
 }
