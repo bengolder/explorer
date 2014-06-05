@@ -22,7 +22,8 @@ _.extend(E, BB.Events);
  * foreignKeysReplaced, <collectionsSet>
  * menuItemChosen, <chosenItem>, <menu>
  * specificItemSelected, <item>
- *
+ * worldGeometryLoaded, <json_data>
+ * globeViewReady
  */
 
 // log all events

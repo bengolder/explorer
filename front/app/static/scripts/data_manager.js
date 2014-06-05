@@ -56,6 +56,15 @@ M.fetchCollections = function(){
 		M.collections.forEach( fetchCollection );
 };
 
+M.getWorldGeometry = function(){
+	var world_url = config.static_root + 'scripts/data/world.json';
+	d3.json(world_url, function(error, json){
+			if (error) return console.warn(error);
+			M.globe = json;
+			Events.trigger('worldGeometryLoaded', json);
+	});
+};
+
 M.buildRelationGraph = function(){
 	// these might be processor intensive, and it might therefore be worth it
 	// to spin off web workers to help optimize this process.
@@ -78,6 +87,7 @@ Events.on('relationsBuilt', function(colls){
 
 Events.on('collectionsFetched', function(){
 	M.buildRelationGraph();
+	M.getWorldGeometry();
 });
 
 Events.on('collectionFetched', function(key){

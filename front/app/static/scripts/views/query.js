@@ -28,6 +28,7 @@ initialize: function () {
 	});
 	this.chart = null;
 	this.menus = [];
+	this.initViews();
 	this.render();
 },
 
@@ -57,7 +58,7 @@ createDefaultMenus:function(){
 	this.addMenu({
 		choice: randomChoice,
 		menuItems: choices,
-	}).chooseItem(this.randomChoice(['faculty', 'topics']));
+	}).chooseItem('countries');
 },
 
 handleSelectedCollection: function(coll){
@@ -104,7 +105,18 @@ addMenu: function (options) {
 removeMenu: function (slot) {
 },
 
+initViews: function(){
+	this.views = {
+		'globe': new GlobeView(),
+	};
+},
+
 renderGlobeView: function(data){
+	var view = this.views.globe;
+	this.chart = view;
+	$("#chart").append(view.$el);
+	console.log("appended", view);
+	view.render(data);
 },
 
 renderChordView: function(data){

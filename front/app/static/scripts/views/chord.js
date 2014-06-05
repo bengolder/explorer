@@ -25,15 +25,12 @@ chord: function(){
 	var drag = d3.behavior.drag()
 		.on('drag', function(d){
 			var angle = mouseAngle()
-			console.log("angle of", d3.mouse(svg[0][0]),':', degrees(angle));
 			var dif = angle - d.refAngle;
-			console.log("dif", degrees(dif));
 			d.rotation = dif;
 			adjustTransform();
 			d3.event.sourceEvent.stopPropagation();
 		}).on('dragstart', function(d){
 			var angle = mouseAngle();
-			console.log("refAngle", degrees(angle));
 			d.refAngle = angle - d.rotation;
 			svg.classed('dragging', true);
 			d3.event.sourceEvent.stopPropagation();
@@ -120,7 +117,6 @@ chord: function(){
 		.on('mouseenter', chordHover)
 		.on('mouseleave', unhover);
 
-	console.log("layout", layout.chords);
 
 	// make labels for each of the faculty or topics
 	var groupLabels = groups.append('text')
@@ -225,7 +221,6 @@ chord: function(){
 	function adjustTransform(){
 		chordDiagram.attr('transform', function(d){
 			var deg = degrees(d.rotation);
-			console.log("rotation", deg);
 			return 'rotate(' + deg + ')';
 				});
 	}
