@@ -1,14 +1,7 @@
-@icon-font-path: "bootstrap/fonts/";
+@import 'bootstrap_custom.less';
+@import 'typography.less';
+@import 'modernizr.less';
 
-@import 'bootstrap/less/bootstrap.less';
-
-
-.browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
-}
 
 .padding-lr(@num) {
     padding-left: @em * @num;
@@ -45,7 +38,6 @@ html, body, #main, #chart {
     height: 100%;
 }
 
-@import 'typography.less';
 @import 'network.less';
 
 /* Responsive: Portrait tablets and up */
