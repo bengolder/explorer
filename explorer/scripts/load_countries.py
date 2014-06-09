@@ -2,6 +2,10 @@ import os
 from pprint import pprint
 from mit.models import Location
 
+lookup = {
+        'U.S.A.': 'United States',
+        }
+
 def getCountries():
     fpath = 'explorer/data/country_codes.csv'
     data = {}
@@ -17,10 +21,9 @@ def getCountries():
 def checkLocations(data):
     locations = Location.objects.all()
     for loc in locations:
-        if loc.name not in data:
-            print loc.name
-        else:
-            print loc.name, 'is', data[loc.name]
+        print 'setting', loc.name, 'id to', data[loc.name]
+        loc.official_id = str(data[loc.name])
+        loc.save()
 
 def run():
     data = getCountries()

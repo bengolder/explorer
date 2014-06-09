@@ -10,16 +10,19 @@ class WorkType(Named):
 
 
 class GenericWork(Titled, CanBeDescribed, CanHaveWebsite):
-    faculty = models.ManyToManyField('Faculty')
+    faculty = models.ManyToManyField('Faculty', related_name='works')
     non_dusp_collaborators = models.CharField(max_length=500, null=True,
             blank=True)
-    work_types = models.ManyToManyField('WorkType')
-    topics = models.ManyToManyField('Topic', null=True, blank=True)
-    locations = models.ManyToManyField('Location', null=True, blank=True)
+    work_types = models.ManyToManyField('WorkType', related_name='works')
+    topics = models.ManyToManyField('Topic', null=True, blank=True,
+            related_name='works')
+    locations = models.ManyToManyField('Location', null=True, blank=True,
+            related_name='works')
     partners = models.TextField(null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
-    subworks = models.ManyToManyField('GenericWork', null=True, blank=True)
+    subworks = models.ManyToManyField('GenericWork', null=True, blank=True,
+            related_name='parentworks')
     class Meta:
         app_label = "mit"
     def __unicode__(self):

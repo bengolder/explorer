@@ -19,7 +19,8 @@ class Location(PolymorphicModel, Named, CanBeDescribed):
     parent_locations = models.ManyToManyField('Location', blank=True,
             null=True, related_name="sublocations")
     official_name = models.CharField(max_length=250, null=True, blank=True)
-    official_id = models.CharField(max_length=50, null=True, blank=True)
+    official_id = models.CharField(max_length=50, null=True, blank=True,
+            help_text="Please enter the ISO 3166-1 numeric code for this country (http://en.wikipedia.org/wiki/ISO_3166-1_numeric)")
     class Meta:
         app_label = 'mit'
     @staticmethod
