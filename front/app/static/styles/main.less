@@ -40,6 +40,40 @@ html, body, #main, #chart {
 
 @import 'network.less';
 
+canvas { 
+    position: absolute; 
+}
+
+.draggable {
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+}
+
+.dragging {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+}
+
+.chart {
+    position: relative;
+}
+
+
+.countryMenu {
+    position: absolute;
+    left: 0px;
+    top: @vu;
+    .country {
+        padding: 0 @em * 2;
+        cursor: pointer;
+        &:hover {
+            color: @orange;
+        }
+    }
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
 
