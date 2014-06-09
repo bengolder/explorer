@@ -39,7 +39,6 @@ drawGlobe: function(){
 			var fill = me.colorScale(d.get('works').length);
 		}
 		// get corresponding shape
-		console.log("feature", d.feature);
 		me.drawFill( fill, d.feature );
 	});
 	// This next line will break
@@ -129,7 +128,7 @@ renderCountryList: function(){
 		})
 		.on('click', function(d){
 			me.selectCountry(d);
-			console.log("country clicked", d.attributes);
+			Events.trigger('countrySelected', d);
 		});
 
 },
