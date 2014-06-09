@@ -33,6 +33,7 @@ render: function(data){
 		return;
 	}
 	console.log("starting globe", Data.globe);
+
 	var w = this.$el.width();
 	var h = this.$el.height();
 	var innerRadius = Math.min(w, h) * 0.35;

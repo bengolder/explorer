@@ -10,6 +10,12 @@ initialize: function(){
 	BaseModel.prototype.initialize.apply(this, arguments);
 },
 
+parse: function(response, options){
+	// convert official_id attribute to integer, not text
+	response.official_id = parseInt(response.official_id, 10);
+	return response;
+},
+
 // idAttribute:,
 // defaults:{},
 // initialize:function(attributes, options){},
