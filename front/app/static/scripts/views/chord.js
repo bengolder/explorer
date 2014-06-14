@@ -1,8 +1,9 @@
 define([
 'jquery',
 'backbone',
+'dat',
 'd3'
-], function( $, BB, d3){
+], function( $, BB, dat, d3){
 
 var ChordView = BB.View.extend({
 
