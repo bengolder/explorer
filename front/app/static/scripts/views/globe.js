@@ -14,7 +14,6 @@ var GlobeView = BB.View.extend({
 className: 'chart globe',
 
 initialize: function(data){
-	console.log("dat", GUI);
 	this.ready = false;
 	this.data = data;
 	var me = this;
