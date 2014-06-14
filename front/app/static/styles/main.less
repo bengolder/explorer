@@ -1,7 +1,7 @@
 @import 'bootstrap_custom.less';
 @import 'typography.less';
 @import 'modernizr.less';
-
+@import 'colors.less';
 
 .padding-lr(@num) {
     padding-left: @em * @num;
@@ -66,13 +66,42 @@ canvas {
     left: 0px;
     top: @vu;
     .country {
+        .bold;
+        .uppercase;
+        .kern(1);
         padding: 0 @em * 2;
         cursor: pointer;
         &:hover {
-            color: @orange;
+            color: @orange !important;
         }
     }
+    .country.selected {
+        color: @orange !important;
+    }
 }
+
+.countryProjects {
+    position: absolute;
+    right: 0px;
+    top: @vu;
+    width: @em * 32;
+    .countryProject {
+        padding: 0 @em * 2;
+        margin-bottom: @vu * 0.5;
+        .authors { padding-left: @em; }
+    }
+}
+
+.title { .semibold; }
+
+.faculty { .light; margin-right: @em; }
+
+.type-tag { 
+    .uppercase; .compact; .kern(1); font-size: @em - 3;
+    .semibold; color: @medgray; margin-right: @em;
+}
+
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {

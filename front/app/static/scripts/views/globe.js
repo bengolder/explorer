@@ -4,8 +4,9 @@ define([
 'backbone',
 'd3',
 'appconfig',
-'topojson'
-], function( Events, Data, BB, d3, config, topojson){
+'topojson',
+'hbs!templates/list/work'
+], function( Events, Data, BB, d3, config, topojson, workTemplate){
 var GlobeView = BB.View.extend({
 
 className: 'chart globe',
@@ -44,7 +45,7 @@ drawGlobe: function(){
 	// This next line will break
 	this.drawStroke("fff", 0.5, this.borders);
 	// outline for the globe itself
-	this.drawStroke("#000", 2, this.globe);
+	this.drawStroke("#888", 1, this.globe);
 
 },
 
@@ -124,10 +125,17 @@ renderCountryList: function(){
 		.enter().append('div')
 		.classed('country', true)
 		.text(function(d){
-			return d.get('name') + ' ('+ d.get('works').length + ')';
+			return d.get('name');
+		})
+		.style('color', function(d){
+			return me.colorScale(d.get('works').length);
 		})
 		.on('click', function(d){
 			me.selectCountry(d);
+			d3.selectAll('.country').classed('selected',
+				function(c){
+					return c === d;
+				});
 			Events.trigger('countrySelected', d);
 		});
 
@@ -149,7 +157,7 @@ render: function(data){
 	var maxProjects = d3.max(data, function(d){ return d.get('works').length; });
 	this.colorScale = d3.scale.linear()
 		.domain([1, maxProjects])
-		.range(['#c6dbef','#3182bd']);
+		.range(['#A3CAD9','#0D3647']);
 
 	this.$el.find('canvas').remove();
 
@@ -198,6 +206,23 @@ drawStroke: function drawStroke( color, strokeWidth, pathItems ){
 selectCountry: function (d){
 	this.selectedCountry = d;
 	this.transitionToCountry(d);
+	this.displayCountryProjects(d);
+},
+
+displayCountryProjects: function(d){
+	var me = this;
+	var chart = d3.select(this.el);
+	chart.selectAll('.countryProjects').remove();
+	var listing = chart.append('div')
+		.classed('countryProjects', true);
+	var data = d.get('works');
+	listing.selectAll('div')
+		.data(data).enter().append('div')
+		.html(function(d){ 
+			return workTemplate(d.attributes);
+		})
+		.classed('countryProject', true);
+
 },
 
 linkCountries: function(){
