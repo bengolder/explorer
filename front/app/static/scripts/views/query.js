@@ -58,7 +58,7 @@ createDefaultMenus:function(){
 	this.addMenu({
 		choice: randomChoice,
 		menuItems: choices,
-	}).chooseItem('countries');
+	}).chooseItem('faculty');
 },
 
 handleSelectedCollection: function(coll){

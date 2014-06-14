@@ -3,15 +3,18 @@ define([
 'data_manager',
 'backbone',
 'd3',
+'dat',
 'appconfig',
 'topojson',
 'hbs!templates/list/work'
-], function( Events, Data, BB, d3, config, topojson, workTemplate){
+], function( Events, Data, BB, d3, dat, config, topojson, workTemplate){
 var GlobeView = BB.View.extend({
+
 
 className: 'chart globe',
 
 initialize: function(data){
+	console.log("dat", dat);
 	this.ready = false;
 	this.data = data;
 	var me = this;
@@ -109,6 +112,42 @@ initCanvas: function(){
 	this.canvas.call(this.drag);
 },
 
+updateCountryColors: function(){
+	var me = this;
+	d3.selectAll('.country')
+		.style('color', function(d){
+			return me.colorScale(d.get('works').length);
+		});
+},
+
+initGUI: function(){
+	var me = this;
+	var existing = d3.selectAll('.dg.main.a');
+	existing.remove();
+	var gui = new dat.GUI();
+	var main = document.getElementById('main');
+	var body = document.body;
+	body.insertBefore(gui.domElement, main);
+	var start = gui.addColor(this, 'colorStart');
+	var end = gui.addColor(this, 'colorEnd');
+	start.onChange(function(v){
+		me.colorScale.range([
+			v,
+			me.colorScale.range()[1]
+			]);
+		me.drawGlobe();
+		me.updateCountryColors();
+	});
+	end.onChange(function(v){
+		me.colorScale.range([
+			me.colorScale.range()[0],
+			v
+			]);
+		me.drawGlobe();
+		me.updateCountryColors();
+	});
+},
+
 renderCountryList: function(){
 	var me = this;
 	var chart = d3.select(this.el);
@@ -155,9 +194,13 @@ render: function(data){
 	this.selectedCountry = null;
 
 	var maxProjects = d3.max(data, function(d){ return d.get('works').length; });
+	this.colorStart = '#A3CAD9';
+	this.colorEnd = '#0D3647';
+
 	this.colorScale = d3.scale.linear()
 		.domain([1, maxProjects])
-		.range(['#A3CAD9','#0D3647']);
+		.range([this.colorStart, this.colorEnd]);
+
 
 	this.$el.find('canvas').remove();
 
@@ -184,6 +227,7 @@ render: function(data){
 	this.drawGlobe();
 
 	this.renderCountryList();
+	this.initGUI();
 },
 
 drawFill: function( color, pathItems){

@@ -12,6 +12,17 @@ initialize: function(data){
 	this.render();
 },
 
+initGUI: function(){
+	var me = this;
+	var existing = d3.selectAll('.dg.main.a');
+	existing.remove();
+	var gui = new dat.GUI();
+	var main = document.getElementById('main');
+	var body = document.body;
+	body.insertBefore(gui.domElement, main);
+	gui.addColor(this, 'color');
+},
+
 chord: function(){
 
 	console.log("drawing chord with", this.data);
@@ -22,6 +33,9 @@ chord: function(){
 	var outerRadius = innerRadius * 1.05;
 	var div = d3.select(this.el);
 	// this needs to be able to resize
+	this.color = '#ff1d50';
+	this.initGUI();
+	var me = this;
 	var drag = d3.behavior.drag()
 		.on('drag', function(d){
 			var angle = mouseAngle()
@@ -54,10 +68,10 @@ chord: function(){
 	var chordDiagram = svg.append('g')
 		.call(drag);
 
-	var hoverBox = svg.append('g')
+	this.hoverBox = svg.append('g')
 		.attr('class', 'hoverTextBox');
 
-	var hoverText = hoverBox.append('text')
+	this.hoverText = this.hoverBox.append('text')
 		.attr('class', 'hoverText')
 		.attr('text-anchor', 'middle');
 
@@ -69,23 +83,23 @@ chord: function(){
 		.matrix(data.sizes);
 
 	// add a 'group' for each faculty or topic
-	var groups = chordDiagram.selectAll('.group')
+	this.groups = chordDiagram.selectAll('.group')
 		.data(layout.groups)
 		.enter().append('g')
 		.attr('class', 'group')
 		.on('click', function(d, i){
 			console.log("clicked on", data.nodes[i].attributes.full_name);
-		}).on('mouseenter', groupHover)
-		.on('mouseleave', unhover);
+		}).on('mouseenter', function(d, i){ me.groupHover(d, i); })
+		.on('mouseleave',   function(d, i){ me.unhover(d, i); });
 
 	// make the arcs representing each faculty or topic around the outside of
 	// the diagram
-	var arcs = groups.append('path')
+	this.arcs = this.groups.append('path')
 		.attr('d', d3.svg.arc()
 			.innerRadius(innerRadius)
 			.outerRadius(outerRadius));
 
-	var textArcs = groups.append('path')
+	var textArcs = this.groups.append('path')
 		.attr('id', function(d, i){ return 'group'+i; })
 		.attr('class', 'textArc')
 		.attr('d', function(d,i){
@@ -108,18 +122,18 @@ chord: function(){
 
 	// make the chords representing the shared connections between each pair or
 	// faculty or topics
-	var chords = chordDiagram.append('g')
+	this.chords = chordDiagram.append('g')
 		.attr('class', 'chord')
 		.selectAll('path')
 		.data(layout.chords)
 		.enter().append('path')
 		.attr('d', d3.svg.chord().radius(innerRadius))
-		.on('mouseenter', chordHover)
-		.on('mouseleave', unhover);
+		.on('mouseenter',   function(d, i){ me.chordHover(d, i); })
+		.on('mouseleave',   function(d, i){ me.unhover(d, i); });
 
 
 	// make labels for each of the faculty or topics
-	var groupLabels = groups.append('text')
+	var groupLabels = this.groups.append('text')
 		.attr('class', 'arcLabel')
 		.attr('dy', -3);
 	
@@ -131,83 +145,9 @@ chord: function(){
 		});
 
 
-	function groupHover(d, i) {
-		var node = data.nodes[i];
-		chords.classed({"lessened": function(p) {
-			return p.source.index != i
-				&& p.target.index != i;
-		}, 'related':function(p){
-			return p.source.index == i
-				|| p.target.index == i;
-		}});
 
-		groups.classed({"lessened": function(o, j) {
-			var other = data.nodes[j];
-			return node.getCommonRelations(other, data.relationKey).length == 0;
-		}, 'selected': function(o, j){
-			var other = data.nodes[j];
-			return node === other;
-		}, 'related': function(o, j){
-			var other = data.nodes[j];
-			return node !== other && node.getCommonRelations(other, data.relationKey).length > 0;
-		}});
 
-		addHoverText( node.get(data.relationKey) );
-	}
 
-	function unhover(d, i){
-		chords.classed({'lessened':false, 'selected':false, 'related':false});
-		groups.classed({'lessened':false, 'selected':false, 'related':false});
-		hoverText.text('');
-	}
-
-	function chordHover(d, i){
-
-		// lessened out unrelated groups.
-		groups.classed({'lessened': function(g, j){
-			return d.source.index != j && d.target.index != j;
-		}, 'selected': function(g, j){
-			return d.source.index == j || d.target.index == j;
-		}});
-
-		// fade out the other chords
-		// and bring this one to the front.
-		chords.classed({'lessened': function(c, j){
-			return c !== d;
-		}, 'selected': function(c, j){
-			return c === d;
-		}}).sort(function(a, b){
-			if( a == d ){
-				return 1;
-			} else if( b == d ){
-				return -1;
-			} else {
-				return 0;
-			}
-		});
-
-		// show connectors in the hover text box.
-		var shared = data.nodes[d.source.index].getCommonRelations(
-				data.nodes[d.target.index], data.relationKey);
-		addHoverText(shared);
-
-	}
-
-	function addHoverText(items){
-		// add a new span for each item
-		hoverText.selectAll('tspan')
-			.data(items).enter()
-			.append('tspan')
-			.attr('y', function(d, i){
-				return i * 20;
-			}).text(function(d){return d.displayText();})
-			.attr('x', 0 );
-
-		// center the hover text vertically
-		hoverBox.attr('transform', 'translate(0,'
-					+ (items.length * -18 / 2) 
-					+ ')');
-	}
 
 	function degrees(rad){
 			return rad * (180/Math.PI);
@@ -224,6 +164,112 @@ chord: function(){
 			return 'rotate(' + deg + ')';
 				});
 	}
+},
+
+drawColor: function(){
+
+	this.groups.attr('style', '');
+	this.chords.attr('style', '');
+
+	d3.selectAll('.chord').style('fill', '#000')
+			.style('fill-opacity', 0.5);
+
+	d3.selectAll('.arc').style('fill', '#000')
+			.style('fill-opacity', 0.9);
+
+	d3.selectAll('.selected')
+			.style('fill', this.color)
+			.style('fill-opacity', 1);
+
+	d3.selectAll('.related')
+			.style('fill', this.color)
+			.style('fill-opacity', 0.6);
+
+	d3.selectAll('.lessened')
+			.style('opacity', 0.2);
+},
+
+chordHover: function(d, i){
+
+	// lessened out unrelated groups.
+	this.groups.classed({'lessened': function(g, j){
+		return d.source.index != j && d.target.index != j;
+	}, 'selected': function(g, j){
+		return d.source.index == j || d.target.index == j;
+	}});
+
+	// fade out the other chords
+	// and bring this one to the front.
+	this.chords.classed({'lessened': function(c, j){
+		return c !== d;
+	}, 'selected': function(c, j){
+		return c === d;
+	}}).sort(function(a, b){
+		if( a == d ){
+			return 1;
+		} else if( b == d ){
+			return -1;
+		} else {
+			return 0;
+		}
+	});
+
+	// show connectors in the hover text box.
+	var shared = this.data.nodes[d.source.index].getCommonRelations(
+			this.data.nodes[d.target.index], this.data.relationKey);
+	this.addHoverText(shared);
+	this.drawColor();
+
+},
+
+groupHover: function(d, i) {
+	var me = this;
+	var node = this.data.nodes[i];
+	this.chords.classed({"lessened": function(p) {
+		return p.source.index != i
+			&& p.target.index != i;
+	}, 'related':function(p){
+		return p.source.index == i
+			|| p.target.index == i;
+	}});
+
+	this.groups.classed({"lessened": function(o, j) {
+		var other = me.data.nodes[j];
+		return node.getCommonRelations(other, me.data.relationKey).length == 0;
+	}, 'selected': function(o, j){
+		var other = me.data.nodes[j];
+		return node === other;
+	}, 'related': function(o, j){
+		var other = me.data.nodes[j];
+		return node !== other && node.getCommonRelations(other, 
+			me.data.relationKey).length > 0;
+	}});
+
+	this.addHoverText( node.get(this.data.relationKey) );
+	this.drawColor();
+},
+
+unhover: function(d, i){
+	this.chords.classed({'lessened':false, 'selected':false, 'related':false});
+	this.groups.classed({'lessened':false, 'selected':false, 'related':false});
+	this.hoverText.text('');
+	this.drawColor();
+},
+
+addHoverText: function (items){
+	// add a new span for each item
+	this.hoverText.selectAll('tspan')
+		.data(items).enter()
+		.append('tspan')
+		.attr('y', function(d, i){
+			return i * 20;
+		}).text(function(d){return d.displayText();})
+		.attr('x', 0 );
+
+	// center the hover text vertically
+	this.hoverBox.attr('transform', 'translate(0,'
+				+ (items.length * -18 / 2) 
+				+ ')');
 },
 
 });

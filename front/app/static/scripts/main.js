@@ -12,12 +12,16 @@ require.config({
             ],
             exports: 'Backbone'
         },
+		dat: {
+			exports:'dat',
+		},
         bootstrap: {
             deps: ['jquery'],
             exports: '$'
         }
     },
     paths: {
+        dat: '../bower_components/dat.gui/dat.gui',
         d3: '../bower_components/d3/d3',
         topojson: '../bower_components/topojson/topojson',
         jquery: '../bower_components/jquery/dist/jquery',
@@ -33,6 +37,7 @@ require([
 	'views/app',
 	'underscore',
 	'jquery',
+	'dat',
 	'd3',
 	'backbone',
 	'bootstrap',
