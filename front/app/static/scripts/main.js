@@ -21,7 +21,7 @@ require.config({
         }
     },
     paths: {
-        dat: '../bower_components/dat.gui/dat.gui',
+        dat: '../bower_components/dat-gui/build/dat.gui',
         d3: '../bower_components/d3/d3',
         topojson: '../bower_components/topojson/topojson',
         jquery: '../bower_components/jquery/dist/jquery',
