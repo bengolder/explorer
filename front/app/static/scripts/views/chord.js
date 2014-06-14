@@ -1,9 +1,9 @@
 define([
 'jquery',
 'backbone',
-'dat',
+'dat/gui/GUI',
 'd3'
-], function( $, BB, dat, d3){
+], function( $, BB, GUI, d3){
 
 var ChordView = BB.View.extend({
 
@@ -17,7 +17,7 @@ initGUI: function(){
 	var me = this;
 	var existing = d3.selectAll('.dg.main.a');
 	existing.remove();
-	var gui = new dat.GUI();
+	var gui = new GUI();
 	var main = document.getElementById('main');
 	var body = document.body;
 	body.insertBefore(gui.domElement, main);
