@@ -83,7 +83,8 @@ class GenericWorkAdmin(admin.ModelAdmin):
             (None, {'fields': [
                 'title',
                 ('work_types', 'faculty'),
-                ('topics', 'locations')
+                ('topics', 'locations'),
+                'website'
                 ],}),
             ('Description', {
                 'fields': ['description'],

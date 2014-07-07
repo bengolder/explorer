@@ -6,7 +6,7 @@ define([
 'dat/gui/GUI',
 'appconfig',
 'topojson',
-'hbs!templates/list/work'
+'hbs!templates/list/work_short'
 ], function( Events, Data, BB, d3, GUI, config, topojson, workTemplate){
 var GlobeView = BB.View.extend({
 
@@ -41,7 +41,6 @@ drawGlobe: function(){
 		} else {
 			var fill = me.colorScale(d.get('works').length);
 		}
-		// get corresponding shape
 		me.drawFill( fill, d.feature );
 	});
 	// This next line will break
@@ -103,12 +102,14 @@ initCanvas: function(){
 			me.canvas.classed({'draggable': true, 'dragging': false});
 		});
 
+
+	this.canvas.call(this.drag);
+
+	// this doesn't currently work. Why not?
 	this.canvas.on('click', function(d){
 		var mouse = d3.mouse(me.canvas.node());
 		var lonlat = me.projection.invert(mouse);
 	});
-
-	this.canvas.call(this.drag);
 },
 
 updateCountryColors: function(){
@@ -154,10 +155,6 @@ renderCountryList: function(){
 	
 	// copy the data before sorting.
 	var data = this.data.slice(0);
-	data.sort(function(a, b){
-		return b.get('works').length - a.get('works').length;
-	});
-
 
 	var countries = menu.selectAll('div').data(data)
 		.enter().append('div')
@@ -211,6 +208,7 @@ render: function(data){
 
     this.path = d3.geo.path()
         .projection(this.projection)
+		.pointRadius(5)
         .context(this.context);
 
     this.globe = {type: "Sphere"};
@@ -255,16 +253,19 @@ selectCountry: function (d){
 displayCountryProjects: function(d){
 	var me = this;
 	var chart = d3.select(this.el);
-	chart.selectAll('.countryProjects').remove();
+	chart.selectAll('.works').remove();
 	var listing = chart.append('div')
-		.classed('countryProjects', true);
+		.classed({
+			'works': true,
+			'right': true
+		});
 	var data = d.get('works');
 	listing.selectAll('div')
 		.data(data).enter().append('div')
 		.html(function(d){ 
 			return workTemplate(d.attributes);
 		})
-		.classed('countryProject', true);
+		.classed('work', true);
 
 },
 
@@ -273,6 +274,18 @@ linkCountries: function(){
 	this.data.forEach(function(d){
 		var found = false,
 			i = 0;
+		if( d.get('official_id') == 702 ){
+			d.feature = {
+				id: 702,
+				type: "Feature",
+				properties: {},
+				geometry: {
+					type: "Point",
+					coordinates: [103.8, 1.3],
+				}
+			};
+			found = true;
+		}
 		while(!found && i < me.countries.features.length){
 			var c = me.countries.features[i];
 			if( d.get('official_id') === c.id ){

@@ -3,12 +3,14 @@ define([
 'views/menu',
 'views/chord',
 'views/globe',
+'views/columns',
 'event_manager',
 'data_manager',
 ], function($, BB, 
 	MenuView, 
 	ChordView,
 	GlobeView,
+	ColumnsView,
 	Events, 
 	Data
 ) {
@@ -58,7 +60,7 @@ createDefaultMenus:function(){
 	this.addMenu({
 		choice: randomChoice,
 		menuItems: choices,
-	}).chooseItem('faculty');
+	}).chooseItem('countries');
 },
 
 handleSelectedCollection: function(coll){
@@ -81,6 +83,8 @@ handleSelectedCollection: function(coll){
 		if( coll.key == 'locations' ){
 			console.log("rendering globe view with", coll.globeData());
 			this.renderGlobeView(coll.globeData());
+		} else if( coll.key == 'works' ){
+			this.renderColumnsView(coll);
 		} else {
 			console.log("rendering chord view with", coll.graphData());
 			this.renderChordView(coll.graphData());
@@ -127,6 +131,13 @@ renderChordView: function(data){
 	view.chord();
 },
 
+renderColumnsView: function(data){
+	var view = new ColumnsView(data);
+	this.chart = view;
+	$("#chart").append(view.$el);
+	console.log("appended", view);
+	view.render(data);
+},
 
 });
 

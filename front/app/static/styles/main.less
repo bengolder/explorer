@@ -80,27 +80,38 @@ canvas {
     }
 }
 
-.countryProjects {
-    position: absolute;
-    right: 0px;
-    top: @vu;
-    width: @em * 32;
-    .countryProject {
-        padding: 0 @em * 2;
-        margin-bottom: @vu * 0.5;
-        .authors { padding-left: @em; }
-    }
-}
 
 .title { .semibold; }
+.faculty { .light; }
 
-.faculty { .light; margin-right: @em; }
 
-.type-tag { 
-    .uppercase; .compact; .kern(1); font-size: @em - 3;
-    .semibold; color: @medgray; margin-right: @em;
+.works {
+    width: @em * 32;
+    padding-left: @em * 2;
+    padding-top: @vu;
+    .work {
+        margin-bottom: @vu * .5;
+        padding-left: @em;
+        text-indent: -@em;
+        .faculty:after {
+            content: ',';
+        }
+        .faculty:last-of-type:after {
+            content:'.';
+        }
+        .type-tag { 
+            .uppercase; .condensed; .kern(1); font-size: @em - 2;
+            .semibold; color: @medgray;
+        }
+    }
 }
-
+.works.right {
+    position: absolute;
+    right: 0px;
+    .work {
+        padding: 0 @em * 2;
+    }
+}
 
 
 /* Responsive: Portrait tablets and up */

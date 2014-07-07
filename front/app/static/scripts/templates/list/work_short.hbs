@@ -1,0 +1,31 @@
+
+<!--work-->
+  <div class="work-header">
+    {{#if work_types}}
+    <span class="item-type">
+      {{#each work_types}}
+      <span class="type-tag">{{attributes.name}}</span>
+      {{/each}}
+    </span>
+    {{/if}}
+  </div>
+
+  <div class="work-details">
+    {{#if website}}
+    <span class="title">
+      <a href="{{website}}" target="_blank">{{title}}</a>.</span>
+    {{else}}
+    <span class="title">{{title}}.</span>
+    {{/if}}
+    <span class="authors">
+      {{#each faculty}}
+      {{#if attributes.home_page}}
+      <span class="faculty">
+      <a href="{{attributes.home_page}}" target="_blank">{{attributes.full_name}}</a></span>
+      {{else}}
+      <span class="faculty">{{attributes.full_name}}</span>
+      {{/if}}
+      {{/each}}
+    </span>
+  </div>
+

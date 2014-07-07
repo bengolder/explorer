@@ -14,7 +14,7 @@ dump_tables:
 	bash ./explorer/scripts/export_tables.sh
 
 newdb:
-	createdb --owner postgres --template template_postgis explorer
+	createdb explorer
 
 schema-chart:
 	python ./explorer/manage.py graph_models mit -o dusp_explorer_db_schema.png
