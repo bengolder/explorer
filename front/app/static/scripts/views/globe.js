@@ -189,14 +189,13 @@ render: function(data){
 	
 	this.selectedCountry = null;
 
-	var maxProjects = d3.max(data, function(d){ return d.get('works').length; });
 	this.colorStart = '#A3CAD9';
 	this.colorEnd = '#0D3647';
 
 	this.colorScale = d3.scale.linear()
-		.domain([1, maxProjects])
+		.domain([1, 6])
+		.clamp(true)
 		.range([this.colorStart, this.colorEnd]);
-
 
 	this.$el.find('canvas').remove();
 

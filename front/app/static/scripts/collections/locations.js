@@ -38,9 +38,7 @@ var Locations = Related.extend({
 
 	globeData: function(){
 		return this.filter(function (m){
-			//return m.get('works').length > 0;
-			return m.get('works').length > 0 &&
-				m.get('official_id') !== 840;
+			return m.get('works').length > 0;
 		});
 	},
 });
