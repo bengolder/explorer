@@ -9,7 +9,6 @@ define([
 var Topics = Related.extend({
 	key: 'topics',
 	menuName: 'topics',
-	url: config.api('topic/'),
 	comparator: 'name',
 
 	initialize: function(){

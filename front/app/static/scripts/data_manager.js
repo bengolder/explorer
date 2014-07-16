@@ -37,32 +37,18 @@ M.initializeCollections = function initializeCollections() {
 	M.bases.forEach(function (Coll, i) {
 		var coll = new Coll();
 		M.collections.set( coll.key, coll );
+		coll.add(JSON_DATA[coll.key], {parse: true});
+		console.log("added", coll.key);
 	});
 	// after all the collections are initialized, fetch their data
-	M.fetchCollections();
+	M.buildRelationGraph();
+	M.getWorldGeometry();
 };
 
-function fetchCollection( key, coll ) {
-	console.log("fetching", key);
-	coll.fetch({
-		'success':function(){
-			Events.trigger('collectionFetched', key);
-		}
-	});
-}
-
-M.fetchCollections = function(){
-		M.collectionQueue = d3.set(M.collections.keys());
-		M.collections.forEach( fetchCollection );
-};
 
 M.getWorldGeometry = function(){
-	var world_url = config.static_root + 'scripts/data/world.json';
-	d3.json(world_url, function(error, json){
-			if (error) return console.warn(error);
-			M.globe = json;
-			Events.trigger('worldGeometryLoaded', json);
-	});
+	M.globe = WORLD;
+	Events.trigger('worldGeometryLoaded', M.globe);
 };
 
 M.buildRelationGraph = function(){
@@ -84,22 +70,6 @@ M.replaceForeignKeys = function(colls){
 Events.on('relationsBuilt', function(colls){
 	M.replaceForeignKeys(colls);
 });
-
-Events.on('collectionsFetched', function(){
-	M.buildRelationGraph();
-	M.getWorldGeometry();
-});
-
-Events.on('collectionFetched', function(key){
-	// model defs is not in the collectionQueue
-	// so ignore it
-	M.collectionQueue.remove(key);
-	if( M.collectionQueue.empty() ) {
-		Events.trigger('collectionsFetched', M.collections);
-	}
-});
-
-M.initializeCollections();
 
 return M;
 

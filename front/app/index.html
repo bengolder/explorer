@@ -26,7 +26,7 @@
         <![endif]-->
         <header>
           <div id="titleblock">
-            DUSP Explorer
+            MIT DUSP Explorer
           </div>
           <div id="controls">
           </div>
@@ -35,9 +35,13 @@
 
           </div>
     </div>
+        <script type="text/javascript" src="/static/data/world.js"></script>
         <script type="text/javascript">
           var API_ROOT = '{{api_root}}';
           var STATIC_ROOT = '/static/';
+          {% if jsons %}
+{% include 'json_data.js' %}
+          {% endif %}
         </script>
         <!-- build:js scripts/main.js -->
         <script data-main="/static/scripts/main" src="/static/bower_components/requirejs/require.js"></script>

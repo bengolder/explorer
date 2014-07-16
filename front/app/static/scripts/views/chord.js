@@ -84,6 +84,7 @@ chord: function(){
 		.matrix(data.sizes);
 
 	// add a 'group' for each faculty or topic
+	// Should I add links here?
 	this.groups = chordDiagram.selectAll('.group')
 		.data(layout.groups)
 		.enter().append('g')
@@ -104,6 +105,7 @@ chord: function(){
 		.attr('id', function(d, i){ return 'group'+i; })
 		.attr('class', 'textArc')
 		.attr('d', function(d,i){
+
 			var aS = d.startAngle,
 				aE = d.endAngle,
 				aMid = aS + ( (aE - aS) * 0.25 ),
@@ -111,6 +113,7 @@ chord: function(){
 			    a1 = a0 + (Math.PI / 2)
 				r0 = outerRadius,
 				r1 = outerRadius * 18;
+
 			return 'M'
 				+ Math.cos(a0) * r0 + ','
 				+ Math.sin(a0) * r0
@@ -144,9 +147,6 @@ chord: function(){
 		.text(function (d, i){
 			return data.nodes[i].displayText();
 		});
-
-
-
 
 
 

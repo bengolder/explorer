@@ -29,9 +29,13 @@
 
           </div>
     </div>
+        <script type="text/javascript" src="/static/scripts/data/world.js"></script>
         <script type="text/javascript">
           var API_ROOT = '{{api_root}}';
           var STATIC_ROOT = '/static/';
+          {% if jsons %}
+{% include 'json_data.js' %}
+          {% endif %}
         </script>
         <script data-main="/static/scripts/5dde2176.main" src="static/bower_components/requirejs/require.js"></script>
 </body>

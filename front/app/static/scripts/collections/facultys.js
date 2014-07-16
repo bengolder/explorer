@@ -11,7 +11,6 @@ var Facultys = Related.extend({
 	key: 'facultys',
 	menuName: 'faculty',
 	comparator: 'title',
-	url: config.api('faculty/'),
 
 	initialize: function(){
 		Related.prototype.initialize.apply(this, arguments);

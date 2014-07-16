@@ -22,7 +22,7 @@ initialize: function () {
 	// it should then handle the creation and destruction of menus,
 	// but shouldn't render them, and shouldn't rerender itself
 	var me = this;
-	Events.on('relationsBuilt', function(){
+	Events.on('foreignKeysReplaced', function(){
 		me.createDefaultMenus();
 	});
 	Events.on('menuItemChosen', function(item, menu){
@@ -32,6 +32,8 @@ initialize: function () {
 	this.menus = [];
 	this.initViews();
 	this.render();
+	console.log("loading query");
+	Data.initializeCollections();
 },
 
 randomChoice: function(arr){
@@ -60,7 +62,7 @@ createDefaultMenus:function(){
 	this.addMenu({
 		choice: randomChoice,
 		menuItems: choices,
-	}).chooseItem('countries');
+	}).chooseItem('faculty');
 },
 
 handleSelectedCollection: function(coll){

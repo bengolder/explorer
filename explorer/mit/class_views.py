@@ -18,3 +18,4 @@ class SimpleView():
                 self.template,
                 RequestContext( request, self.context ),
                 )
+

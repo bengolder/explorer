@@ -13,25 +13,54 @@
     padding-bottom: @vu * @num;
 }
 
+@header_height: @vu * 2;
+
 header {
     border-bottom: 1px solid @black;
-    height: @vu * 4;
+    height: @header_height;
+    overflow: auto;
 }
 
 #titleblock {
-    padding-top: @vu * 1.25;
-    .padding-lr(1);
-    position: absolute;
-    height: @vu * 4;
+    float: left;
+    padding-top: @vu * 0.5;
+    padding-left: @em * 2;
+    padding-right: @em;
+    height: @header_height;
     border-right: 1px solid @black;
 }
-#controls {
-    height: @vu * 4;
-    .padding-tb(1);
-    margin-left: @em * 10;
+
+.about {
+    float: left;
+    .uppercase;
+    font-size: @em - 3;
+    .padding-lr(1);
+    padding-top: @vu * 0.5;
+    height: @header_height;
+    border-right: 1px solid @black;
+    cursor: pointer;
+    &:hover {
+        color: @blue;
+    }
 }
-.control-prefix {
-    padding-top: @vu * 20;
+
+#controls {
+    float: left;
+    height: @header_height;
+}
+.dropdown-menu {
+    z-index: 99;
+}
+
+.info {
+    .uppercase;
+    font-size: @em - 2;
+    margin-left: @em * 0.5;
+    color: @medgray;
+    cursor: pointer;
+    &:hover {
+        color: @blue;
+    }
 }
 
 html, body, #main, #chart {

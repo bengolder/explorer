@@ -14,8 +14,6 @@ var Works = Related.extend({
 	comparator: 'title',
 	model: Work,
 
-	url: config.api('work/'),
-
 	parse:function( response ){
 		return response;
 	}, 

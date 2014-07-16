@@ -275,11 +275,18 @@ module.exports = function (grunt) {
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}',
                         'styles/fonts/{,*/}*.*',
-                        'scripts/data/{,*/}*.*',
+                        'data/{,*/}*.*',
                         'bower_components/bootstrap/fonts/*.*'
                     ]
                 }]
             },
+			fonts: {
+				expand: true,
+				dot: true,
+				cwd: '<%= yeoman.app %>/static/bower_components/bootstrap/fonts',
+				dest: '.tmp/static/fonts/',
+				src: '*.*'
+			},
             styles: {
                 expand: true,
                 dot: true,
@@ -318,18 +325,21 @@ module.exports = function (grunt) {
                 'less',
                 'createDefaultTemplate',
                 'jst',
-                'copy:styles'
+                'copy:styles',
+                'copy:fonts'
             ],
             test: [
                 'createDefaultTemplate',
                 'jst',
-                'copy:styles'
+                'copy:styles',
+                'copy:fonts'
             ],
             dist: [
                 'less',
                 'createDefaultTemplate',
                 'jst',
                 'copy:styles',
+                'copy:fonts',
                 'imagemin',
                 'svgmin',
                 'htmlmin'

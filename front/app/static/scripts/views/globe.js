@@ -14,13 +14,8 @@ var GlobeView = BB.View.extend({
 className: 'chart globe',
 
 initialize: function(data){
-	this.ready = false;
 	this.data = data;
 	var me = this;
-	Events.on('worldGeometryLoaded', function(){
-		me.ready = true;
-		Events.trigger('globeViewReady');
-	});
 },
 
 drawGlobe: function(){
@@ -179,16 +174,6 @@ renderCountryList: function(){
 render: function(data){
 	var me = this;
 
-	if( !this.ready ){
-		console.log("waiting for globe data");
-		Events.on('globeViewReady', function(){
-			me.render(data);
-		});
-		return;
-	}
-	
-	this.selectedCountry = null;
-
 	this.colorStart = '#A3CAD9';
 	this.colorEnd = '#0D3647';
 
@@ -201,7 +186,6 @@ render: function(data){
 
 	this.initCanvas();
 
-	console.log("starting globe", Data.globe);
 
 	var world = Data.globe;
 

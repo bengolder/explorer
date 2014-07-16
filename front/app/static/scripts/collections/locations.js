@@ -7,10 +7,10 @@ define([
 'models/location'
 ], function (config, $, _, BB, Related, Location) {
 var Locations = Related.extend({
+
+    key: 'locations',
 	menuName: 'countries',
 	comparator: 'name',
-    key: 'locations',
-	url: config.api('location/'),
 
 	initialize: function(){
 		Related.prototype.initialize.apply(this, arguments);
@@ -37,9 +37,11 @@ var Locations = Related.extend({
 	},
 
 	globeData: function(){
-		return this.filter(function (m){
+		var data =  this.filter(function (m){
 			return m.get('works').length > 0;
 		});
+		console.log("thing", data);
+		return data;
 	},
 });
 return Locations;
