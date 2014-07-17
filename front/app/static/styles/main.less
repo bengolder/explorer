@@ -16,36 +16,30 @@
 @header_height: @vu * 2;
 
 header {
+    padding-left: @em;
     border-bottom: 1px solid @black;
     height: @header_height;
-    overflow: auto;
 }
 
-#titleblock {
+.header-panel {
     float: left;
+    color: @black;
+    &:hover {
+        color: @white;
+        background-color: @black;
+    }
+    font-weight: 700;
     padding-top: @vu * 0.5;
-    padding-left: @em * 2;
+    padding-left: @em;
     padding-right: @em;
     height: @header_height;
     border-right: 1px solid @black;
 }
 
-.about {
-    float: left;
-    .uppercase;
-    font-size: @em - 3;
-    .padding-lr(1);
-    padding-top: @vu * 0.5;
-    height: @header_height;
-    border-right: 1px solid @black;
-    cursor: pointer;
-    &:hover {
-        color: @blue;
-    }
-}
+.header-panel.info-button { font-weight:300; }
 
 #controls {
-    float: left;
+    margin-left: @em * 25;
     height: @header_height;
 }
 .dropdown-menu {
