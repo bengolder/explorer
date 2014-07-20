@@ -68,6 +68,10 @@ display: function(){
 	return this.get(this.displayKey);
 },
 
+url: function(){
+	return this.get(this.urlKey);
+},
+
 serialize: function(){
 	this.getSpanningRelations();
 	var data = _.clone(this.attributes);

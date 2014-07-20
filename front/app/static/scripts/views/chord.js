@@ -1,9 +1,10 @@
 define([
 'jquery',
+'underscore',
 'backbone',
 'dat/gui/GUI',
 'd3'
-], function( $, BB, GUI, d3){
+], function( $, _, BB, GUI, d3){
 
 var ChordView = BB.View.extend({
 
@@ -87,11 +88,14 @@ chord: function(){
 	// Should I add links here?
 	this.groups = chordDiagram.selectAll('.group')
 		.data(layout.groups)
-		.enter().append('g')
+		.enter().append('a')
+		.attr("xlink:href", function(d, i){
+			var node = data.nodes[i];
+			return node.get("home_page");
+		}).attr("target", "_blank")
 		.attr('class', 'group')
-		.on('click', function(d, i){
-			console.log("clicked on", data.nodes[i].attributes.full_name);
-		}).on('mouseenter', function(d, i){ me.groupHover(d, i); })
+		.append('g')
+		.on('mouseenter', function(d, i){ me.groupHover(d, i); })
 		.on('mouseleave',   function(d, i){ me.unhover(d, i); });
 
 	// make the arcs representing each faculty or topic around the outside of

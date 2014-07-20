@@ -6,6 +6,9 @@ define([
 ], function ($, _, BB, BaseModel) {
 var Work = BaseModel.extend({
 
+displayKey: 'title',
+urlKey: 'website',
+
 initialize: function(){
 	BaseModel.prototype.initialize.apply(this, arguments);
 },

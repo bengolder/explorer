@@ -6,6 +6,9 @@ define([
 ], function ($, _, BB, BaseModel) {
 var Faculty	= BaseModel.extend({
 
+urlKey:'home_page',
+displayKey:'full_name',
+
 initialize: function(){
 	BaseModel.prototype.initialize.apply(this, arguments);
 },
