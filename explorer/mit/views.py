@@ -42,6 +42,5 @@ ctx = {
         }
 
 
-
 home = SimpleView( 'DUSP Explorer', 'index.html', ctx )
 

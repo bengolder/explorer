@@ -1,9 +1,6 @@
 run:
 	python ./explorer/manage.py runserver
 
-serve:
-	grunt --gruntfile ./front/Gruntfile.js server
-
 runscript: 
 	 python ./explorer/manage.py runscript $(script)
 
@@ -83,10 +80,7 @@ shell:
 	python ./explorer/manage.py shell_plus
 
 build: 
-	grunt --gruntfile ./front/Gruntfile.js build
-	sed -i '' 's/=\"scripts/=\"\/static\/scripts/g' ./front/dist/index.html
-	sed -i '' 's/href=\"styles/href=\"static\/styles/g' ./front/dist/index.html
-	sed -i '' 's/=\"bower_components/=\"\/static\/bower_components/g' ./front/dist/index.html
+	gulp --gulpfile front/gulpfile.js
 
 staticfiles:
 	python ./explorer/manage.py collectstatic --noinput

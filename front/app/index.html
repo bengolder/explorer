@@ -9,15 +9,10 @@
         <title>DUSP Explorer</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css(.tmp) styles/main.css -->
         <link rel="shortcut icon" href="static/favicon.ico" />
         <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,700,400|Roboto:400,300,700,900,500,100,400italic' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="/static/styles/main.css">
-        <!-- endbuild -->
-        <!-- build:js scripts/vendor/modernizr.js -->
-        <script src="/static/bower_components/modernizr/modernizr.js"></script>
-        <!-- endbuild -->
+        <link rel="stylesheet" href="/static/css/main.css">
+        <script src="/static/js/vendor.js"></script>
     </head>
     <body>
     <div id="main">
@@ -43,8 +38,6 @@
 {% include 'json_data.js' %}
           {% endif %}
         </script>
-        <!-- build:js scripts/main.js -->
-        <script data-main="/static/scripts/main" src="/static/bower_components/requirejs/require.js"></script>
-        <!-- endbuild -->
+        <script  src="/static/js/bundle.js"></script>
 </body>
 </html>
