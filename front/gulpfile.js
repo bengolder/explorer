@@ -93,4 +93,5 @@ gulp.task('watch', function() {
     gulp.watch( lessfiles, ['less']);
 });
 
+gulp.task('build', ['less', 'html', 'vendor', 'copy', 'js']);
 gulp.task('default', ['less', 'html', 'vendor', 'copy', 'js', 'watch']);
