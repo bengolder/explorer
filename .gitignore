@@ -1,6 +1,11 @@
 node_modules
+bin
+lib
+include
+explorer/data
 dist
 .tmp
+.Python
 .sass-cache
 app/bower_components
 test/bower_components
@@ -8,3 +13,5 @@ test/bower_components
 *.swo
 *.swp
 .DS_Store
+settings.py
+fonts
