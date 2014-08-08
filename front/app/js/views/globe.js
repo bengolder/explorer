@@ -36,7 +36,7 @@ drawGlobe: function(){
 		me.drawFill( fill, d.feature );
 	});
 	// This next line will break
-	this.drawStroke("fff", 0.5, this.borders);
+	this.drawStroke("#fff", 0.5, this.borders);
 	// outline for the globe itself
 	this.drawStroke("#888", 1, this.globe);
 
