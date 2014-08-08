@@ -1,5 +1,4 @@
 var BB = require('backbone');
-var dat = window.dat;
 var d3 = require('d3');
 
 var ChordView = BB.View.extend({
@@ -8,17 +7,6 @@ className: 'chart',
 initialize: function(data){
 	this.data = data;
 	this.render();
-},
-
-initGUI: function(){
-	var me = this;
-	var existing = d3.selectAll('.dg.main.a');
-	existing.remove();
-	var gui = new dat.GUI();
-	var main = document.getElementById('main');
-	var body = document.body;
-	body.insertBefore(gui.domElement, main);
-	gui.addColor(this, 'color');
 },
 
 chord: function(){
@@ -32,7 +20,6 @@ chord: function(){
 	var div = d3.select(this.el);
 	// this needs to be able to resize
 	this.color = '#ff1d50';
-	this.initGUI();
 	var me = this;
 	var drag = d3.behavior.drag()
 		.on('drag', function(d){

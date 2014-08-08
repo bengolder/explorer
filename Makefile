@@ -1,5 +1,5 @@
 run:
-	python ./explorer/manage.py runserver
+	gulp --gulpfile ./front/gulpfile.js & python ./explorer/manage.py runserver
 
 runscript: 
 	 python ./explorer/manage.py runscript $(script)

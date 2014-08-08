@@ -26,6 +26,10 @@ var jsfiles = [
 		'./app/js/**/*.js',
 	];
 
+var templates = [
+	'./app/js/templates/**/*',
+];
+
 var vendorfiles = [
 		'./node_modules/modernizr/modernizr.js',
 		'./node_modules/jquery/dist/jquery.js',
@@ -84,4 +88,9 @@ gulp.task('less', function(){
 
 });
 
-gulp.task('default', ['less', 'html', 'vendor', 'copy', 'js']);
+gulp.task('watch', function() {
+    gulp.watch( jsfiles.concat(templates), ['js']);
+    gulp.watch( lessfiles, ['less']);
+});
+
+gulp.task('default', ['less', 'html', 'vendor', 'copy', 'js', 'watch']);

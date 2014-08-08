@@ -2,7 +2,6 @@ var Events = require('../event_manager');
 var Data = require('../data_manager');
 var BB = require('backbone');
 var d3 = require('d3');
-var dat = window.dat;
 var topojson = require('../../../node_modules/topojson/topojson.js');
 var workTemplate = require('../templates/list/work_short.hbs');
 
@@ -111,34 +110,6 @@ updateCountryColors: function(){
 		.style('color', function(d){
 			return me.colorScale(d.get('works').length);
 		});
-},
-
-initGUI: function(){
-	var me = this;
-	var existing = d3.selectAll('.dg.main.a');
-	existing.remove();
-	var gui = new dat.GUI();
-	var main = document.getElementById('main');
-	var body = document.body;
-	body.insertBefore(gui.domElement, main);
-	var start = gui.addColor(this, 'colorStart');
-	var end = gui.addColor(this, 'colorEnd');
-	start.onChange(function(v){
-		me.colorScale.range([
-			v,
-			me.colorScale.range()[1]
-			]);
-		me.drawGlobe();
-		me.updateCountryColors();
-	});
-	end.onChange(function(v){
-		me.colorScale.range([
-			me.colorScale.range()[0],
-			v
-			]);
-		me.drawGlobe();
-		me.updateCountryColors();
-	});
 },
 
 renderCountryList: function(){
