@@ -80,7 +80,7 @@ shell:
 	python ./explorer/manage.py shell_plus
 
 build: 
-	gulp --gulpfile front/gulpfile.js
+	gulp --gulpfile front/gulpfile.js build
 
 staticfiles:
 	python ./explorer/manage.py collectstatic --noinput
