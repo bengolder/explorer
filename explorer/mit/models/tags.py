@@ -23,6 +23,8 @@ class Location(PolymorphicModel, Named, CanBeDescribed):
             help_text="Please enter the ISO 3166-1 numeric code for this country (http://en.wikipedia.org/wiki/ISO_3166-1_numeric)")
     class Meta:
         app_label = 'mit'
+    def __unicode__(self):
+        return "%s-%s" % (self.official_id, self.name)
     @staticmethod
     def autocomplete_search_fields():
         return ("id__iexact", "name__icontains",)
