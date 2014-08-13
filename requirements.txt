@@ -10,6 +10,7 @@ django-guardian
 djangorestframework
 django-cors-headers
 markdown
+markdown2
 django-filter
 Pillow
 

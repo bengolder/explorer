@@ -3,6 +3,15 @@
 @import 'modernizr.less';
 @import 'colors.less';
 
+.column-count(@num, @gap) {
+    -webkit-column-count: @num;
+    -moz-column-count: @num;
+    column-count: @num;
+    -webkit-column-gap: @gap;
+    -moz-column-gap: @gap;
+    column-gap: @gap;
+}
+
 .padding-lr(@num) {
     padding-left: @em * @num;
     padding-right: @em * @num;
@@ -45,6 +54,20 @@ header {
 .dropdown-menu {
     z-index: 99;
 }
+
+#info {
+    display: none;
+    .column-count(3, @em * 2);
+    padding: @vu @em * 2;
+    background-color: @white;
+    /*background-color: fade(@white, 90%);*/
+    /*color: @white;*/
+    position: absolute;
+    z-index: 99;
+    border-bottom: 1px solid @black;
+    .light;
+}
+
 
 .info {
     .uppercase;

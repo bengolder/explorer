@@ -6239,6 +6239,23 @@ header {
 .dropdown-menu {
   z-index: 99;
 }
+#info {
+  display: none;
+  -webkit-column-count: 3;
+  -moz-column-count: 3;
+  column-count: 3;
+  -webkit-column-gap: 28px;
+  -moz-column-gap: 28px;
+  column-gap: 28px;
+  padding: 20px 28px;
+  background-color: #ffffff;
+  /*background-color: fade(@white, 90%);*/
+  /*color: @white;*/
+  position: absolute;
+  z-index: 99;
+  border-bottom: 1px solid #000000;
+  font-weight: 300;
+}
 .info {
   text-transform: uppercase;
   font-size: 12px;
