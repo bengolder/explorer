@@ -19,7 +19,7 @@ chord: function(){
 	var outerRadius = innerRadius * 1.05;
 	var div = d3.select(this.el);
 	// this needs to be able to resize
-	this.color = '#ff1d50';
+	this.color = '#ff6600';
 	var me = this;
 	var drag = d3.behavior.drag()
 		.on('drag', function(d){
