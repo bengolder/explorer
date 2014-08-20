@@ -3,7 +3,7 @@ var Work = require('../models/work');
 
 var Works = Related.extend({
 
-	menuName: 'projects, research, and publications',
+	menuName: 'research projects',
 	key: 'works',
 	comparator: 'title',
 	model: Work,
