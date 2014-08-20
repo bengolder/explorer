@@ -1,10 +1,15 @@
 var Related = require('../collections/related');
 var Faculty = require('../models/faculty');
 
+function lastName(m){
+	var names = m.get('full_name').trim().split(' ');
+	return names[names.length - 1];
+}
+
 var Facultys = Related.extend({
 	key: 'facultys',
 	menuName: 'faculty',
-	comparator: 'title',
+	comparator: lastName,
 
 	initialize: function(){
 		Related.prototype.initialize.apply(this, arguments);
@@ -53,6 +58,7 @@ graphData: function(){
 	var relationMatrix = [];
 	var sizeMatrix = [];
 	var me = this;
+	console.log("models", me.models);
 	me.each(function(n, i){
 		// add a row
 		relationMatrix.push([]);
@@ -69,9 +75,11 @@ graphData: function(){
 			relationMatrix[i].push(shared);
 			sizeMatrix[i].push(shared.length);
 		});
-
 	});
-	return { nodes: me.models, relations: relationMatrix, 
+
+	return { 
+		nodes: me.models, 
+		relations: relationMatrix, 
 		sizes: sizeMatrix,
 		relationKey: 'current_interests'
 	};
