@@ -1,4 +1,4 @@
-django>=1.6.2
+django==1.6.2
 psycopg2
 south
 django-polymorphic
