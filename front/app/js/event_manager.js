@@ -16,6 +16,7 @@ _.extend(Events, BB.Events);
 // Maintain a centralized system of events can help create a loosely coupled
 // system that can be more easily converted to asynchronous tasks.
 
+// Ben should double check the events listed here.
 /* SUBSCRIBEABLE EVENTS
  * collectionFetched, <collectionName>
  * collectionsFetched, <collectionsSet>
