@@ -25,6 +25,7 @@ install-deps:
 
 install:
 	make install-deps
+	git clone git@github.com:bengolder/textbits.git ./explorer/textbits
 
 update:
 	git pull origin master
