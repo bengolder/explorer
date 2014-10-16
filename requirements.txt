@@ -5,7 +5,7 @@ django-polymorphic
 django-extensions
 django-sekizai
 django-reversion
-django-grappelli
+django-grappelli==2.5.2
 django-guardian
 djangorestframework
 django-cors-headers
@@ -13,4 +13,3 @@ markdown
 markdown2
 django-filter
 Pillow
-
